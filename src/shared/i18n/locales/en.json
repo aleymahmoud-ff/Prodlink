@@ -49,7 +49,6 @@
     "lines": "Lines",
     "products": "Products",
     "reasons": "Reasons",
-    "observability": "Observability",
     "settings": "Settings"
   },
   "dashboard": {
@@ -151,8 +150,7 @@
       "lines": "Lines",
       "products": "Products",
       "reasons": "Reasons",
-      "approvalLevels": "Approval Levels",
-      "observability": "Observability"
+      "approvalLevels": "Approval Levels"
     },
     "users": {
       "title": "User Management",
@@ -239,19 +237,6 @@
       "connected": "Connected",
       "connectionError": "Connection Error",
       "databaseProviderNote": "Database provider is configured via environment variable. Change requires app restart."
-    },
-    "observability": {
-      "title": "Observability",
-      "description": "Monitor deployments, errors, and system performance",
-      "deployments": "Deployments",
-      "errorLogs": "Error Logs",
-      "recentDeployments": "Recent Deployments",
-      "applicationLogs": "Application Logs",
-      "noDeployments": "No deployments found",
-      "noErrors": "No errors logged. Your application is running smoothly!",
-      "vercelTokenHint": "Make sure VERCEL_TOKEN is set in your environment variables.",
-      "showStackTrace": "Show stack trace",
-      "showMetadata": "Show metadata"
     }
   },
   "approvals": {

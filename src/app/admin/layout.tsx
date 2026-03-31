@@ -11,7 +11,6 @@ import {
   Factory,
   Package,
   List,
-  Activity,
   ChevronRight,
   GitBranch,
 } from 'lucide-react'
@@ -29,7 +28,6 @@ const tabs: TabItem[] = [
   { key: 'products', href: '/admin/products', icon: Package },
   { key: 'reasons', href: '/admin/reasons', icon: List },
   { key: 'approvalLevels', href: '/admin/approval-levels', icon: GitBranch },
-  { key: 'observability', href: '/admin/observability', icon: Activity },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

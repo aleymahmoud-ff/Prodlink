@@ -49,7 +49,6 @@
     "lines": "خطوط الإنتاج",
     "products": "المنتجات",
     "reasons": "الأسباب",
-    "observability": "المراقبة",
     "settings": "الإعدادات"
   },
   "dashboard": {
@@ -151,8 +150,7 @@
       "lines": "خطوط الإنتاج",
       "products": "المنتجات",
       "reasons": "الأسباب",
-      "approvalLevels": "مستويات الموافقة",
-      "observability": "المراقبة"
+      "approvalLevels": "مستويات الموافقة"
     },
     "users": {
       "title": "إدارة المستخدمين",
@@ -239,19 +237,6 @@
       "connected": "متصل",
       "connectionError": "خطأ في الاتصال",
       "databaseProviderNote": "يتم تكوين مزود قاعدة البيانات عبر متغير البيئة. يتطلب التغيير إعادة تشغيل التطبيق."
-    },
-    "observability": {
-      "title": "المراقبة",
-      "description": "مراقبة عمليات النشر والأخطاء وأداء النظام",
-      "deployments": "عمليات النشر",
-      "errorLogs": "سجل الأخطاء",
-      "recentDeployments": "عمليات النشر الأخيرة",
-      "applicationLogs": "سجلات التطبيق",
-      "noDeployments": "لم يتم العثور على عمليات نشر",
-      "noErrors": "لا توجد أخطاء مسجلة. التطبيق يعمل بسلاسة!",
-      "vercelTokenHint": "تأكد من إعداد VERCEL_TOKEN في متغيرات البيئة.",
-      "showStackTrace": "عرض تتبع المكدس",
-      "showMetadata": "عرض البيانات الوصفية"
     }
   },
   "approvals": {
