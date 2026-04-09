@@ -1,1 +1,1 @@
-web: npm run db:setup && HOSTNAME=0.0.0.0 PORT=${PORT:-3000} node .next/standalone/server.js
+web: cp -r public .next/standalone/public 2>/dev/null; cp -r .next/static .next/standalone/.next/static 2>/dev/null; npm run db:setup && HOSTNAME=0.0.0.0 PORT=${PORT:-3000} node .next/standalone/server.js
