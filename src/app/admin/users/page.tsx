@@ -33,7 +33,7 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     setIsLoading(true)
     try {
-      const res = await fetch('/api/users')
+      const res = await fetch('/api/users', { cache: 'no-store' })
       if (res.ok) {
         const data = await res.json()
         setUsers(data)

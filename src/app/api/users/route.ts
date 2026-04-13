@@ -4,6 +4,8 @@ import { eq, desc, inArray } from 'drizzle-orm';
 import { auth } from '@/auth';
 import bcrypt from 'bcryptjs';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const session = await auth();
