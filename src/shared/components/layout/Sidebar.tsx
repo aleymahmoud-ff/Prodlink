@@ -55,12 +55,17 @@ interface SidebarProps {
 
 export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
   const pathname = usePathname()
-  const { profile, isLoading } = useUser()
+  const { user, profile, isLoading } = useUser()
   const { t, locale, setLocale } = useTranslation()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
-  const isAdmin = profile?.role === 'admin'
+  const displayUser = profile
+    ? { fullName: profile.fullName, email: profile.email, role: profile.role }
+    : user
+    ? { fullName: user.name || user.email, email: user.email, role: user.role }
+    : null
+  const isAdmin = displayUser?.role === 'admin'
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -251,7 +256,7 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
         )}
 
         {/* User Profile Button */}
-        {!isLoading && profile && !collapsed && (
+        {!isLoading && displayUser && !collapsed && (
           <button
             onClick={() => setUserMenuOpen(!userMenuOpen)}
             className={cn(
@@ -263,11 +268,11 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">
-                {profile.fullName?.charAt(0)?.toUpperCase() || 'U'}
+                {displayUser.fullName?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               <div className="flex-1 min-w-0 text-left">
-                <p className="text-sm font-semibold text-slate-700 truncate">{profile.fullName}</p>
-                <p className="text-xs text-slate-400 truncate">{profile.email}</p>
+                <p className="text-sm font-semibold text-slate-700 truncate">{displayUser.fullName}</p>
+                <p className="text-xs text-slate-400 truncate">{displayUser.email}</p>
               </div>
               <ChevronUp className={cn(
                 "w-4 h-4 text-slate-400 transition-transform duration-200",
@@ -276,21 +281,21 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
             </div>
             <div className="mt-3 flex items-center gap-2">
               <span className="inline-flex items-center px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide rounded-full bg-indigo-100 text-indigo-600">
-                {t(`admin.users.roles.${profile.role}`)}
+                {t(`admin.users.roles.${displayUser.role}`)}
               </span>
             </div>
           </button>
         )}
 
         {/* Collapsed state - just show avatar that opens menu */}
-        {!isLoading && profile && collapsed && (
+        {!isLoading && displayUser && collapsed && (
           <div className="relative">
             {userMenuOpen && (
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-50">
                 <div className="p-2">
                   <div className="px-3 py-2 border-b border-slate-100 mb-2">
-                    <p className="text-sm font-semibold text-slate-700 truncate">{profile.fullName}</p>
-                    <p className="text-xs text-slate-400 truncate">{profile.email}</p>
+                    <p className="text-sm font-semibold text-slate-700 truncate">{displayUser.fullName}</p>
+                    <p className="text-xs text-slate-400 truncate">{displayUser.email}</p>
                   </div>
 
                   <Link
@@ -333,7 +338,7 @@ export function Sidebar({ collapsed = false, onToggle }: SidebarProps) {
               )}
             >
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">
-                {profile.fullName?.charAt(0)?.toUpperCase() || 'U'}
+                {displayUser.fullName?.charAt(0)?.toUpperCase() || 'U'}
               </div>
             </button>
           </div>

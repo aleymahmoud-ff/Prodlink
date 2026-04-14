@@ -108,16 +108,16 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
           return
         }
 
-        const response = await fetch('/api/auth/register', {
+        const response = await fetch('/api/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
             username: username || null,
             password,
-            fullName,
+            full_name: fullName,
             role,
-            lineIds: selectedLines,
+            line_ids: selectedLines,
           }),
         })
 
