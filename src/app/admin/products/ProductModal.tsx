@@ -12,6 +12,7 @@ interface Product {
   category: string | null
   unit_of_measure: string
   line_id: string | null
+  is_active: boolean
 }
 
 interface Line {
@@ -34,6 +35,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
   const [category, setCategory] = useState(product?.category || '')
   const [unitOfMeasure, setUnitOfMeasure] = useState(product?.unit_of_measure || 'unit')
   const [lineId, setLineId] = useState(product?.line_id || '')
+  const [isActive, setIsActive] = useState(product?.is_active ?? true)
   const [lines, setLines] = useState<Line[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -72,6 +74,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
             category: category || null,
             unit_of_measure: unitOfMeasure,
             line_id: lineId || null,
+            is_active: isActive,
           }
         : {
             name,
@@ -79,6 +82,7 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
             category: category || null,
             unit_of_measure: unitOfMeasure,
             line_id: lineId || null,
+            is_active: isActive,
           }
 
       const res = await fetch(url, {
@@ -210,6 +214,23 @@ export function ProductModal({ product, onClose, onSave }: ProductModalProps) {
                     <option value="carton">Carton</option>
                     <option value="tray">Tray</option>
                   </select>
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isActive}
+                      onChange={(e) => setIsActive(e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <div>
+                      <span className="block text-sm font-medium text-gray-700">Active</span>
+                      <span className="block text-xs text-gray-500">
+                        Inactive products are hidden from production, waste, damage, and reprocessing forms
+                      </span>
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>
