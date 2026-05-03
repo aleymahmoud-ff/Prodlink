@@ -36,6 +36,7 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
   const [email, setEmail] = useState(user?.email || '')
   const [role, setRole] = useState<UserRole>(user?.role || 'engineer')
   const [password, setPassword] = useState('')
+  const [isActive, setIsActive] = useState(user?.is_active ?? true)
   const [selectedLines, setSelectedLines] = useState<string[]>([])
   const [lines, setLines] = useState<Line[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -89,9 +90,12 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id: user.id,
+            email,
             full_name: fullName,
             username: username || null,
             role: role,
+            is_active: isActive,
+            ...(password ? { password } : {}),
             line_ids: selectedLines,
           }),
         })
@@ -211,26 +215,24 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    disabled={isEditing}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
 
-                {!isEditing && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required={!isEditing}
-                      minLength={6}
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                )}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    {isEditing ? 'New Password (leave blank to keep current)' : 'Password'}
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required={!isEditing}
+                    minLength={isEditing && !password ? undefined : 6}
+                    placeholder={isEditing ? '••••••••' : ''}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
@@ -247,6 +249,16 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
                     <option value="admin">Admin</option>
                   </select>
                 </div>
+
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={isActive}
+                    onChange={(e) => setIsActive(e.target.checked)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <span className="text-sm text-gray-700">Active</span>
+                </label>
 
                 {(role === 'engineer' || isEditing) && lines.length > 0 && (
                   <div>
