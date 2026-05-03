@@ -31,7 +31,15 @@ function LoginForm() {
     })
 
     if (result?.error) {
-      setError(result.error)
+      const messages: Record<string, string> = {
+        missing_credentials: 'Username/email and password are required',
+        invalid_credentials: 'Invalid username/email or password',
+        account_disabled: 'Your account has been deactivated. Contact an administrator.',
+        no_password_set: 'Please use Google sign-in or reset your password',
+        CredentialsSignin: 'Invalid username/email or password',
+      }
+      const key = (result.code as string | undefined) ?? result.error
+      setError(messages[key] ?? 'Sign-in failed. Please try again.')
       setIsLoading(false)
       return
     }

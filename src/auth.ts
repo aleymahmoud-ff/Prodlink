@@ -1,5 +1,12 @@
-import NextAuth from 'next-auth';
+import NextAuth, { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+
+class InvalidLoginError extends CredentialsSignin {
+  constructor(code: string) {
+    super();
+    this.code = code;
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -11,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials?.login || !credentials?.password) {
-          throw new Error('Username/email and password are required');
+          throw new InvalidLoginError('missing_credentials');
         }
 
         const login = (credentials.login as string).trim();
@@ -34,21 +41,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .limit(1);
 
         if (!user) {
-          throw new Error('Invalid username/email or password');
+          throw new InvalidLoginError('invalid_credentials');
         }
 
         if (!user.isActive) {
-          throw new Error('Account is deactivated');
+          throw new InvalidLoginError('account_disabled');
         }
 
         if (!user.passwordHash) {
-          throw new Error('Please use Google sign-in or reset your password');
+          throw new InvalidLoginError('no_password_set');
         }
 
         // Verify password
         const isValid = await bcrypt.compare(password, user.passwordHash);
         if (!isValid) {
-          throw new Error('Invalid username/email or password');
+          throw new InvalidLoginError('invalid_credentials');
         }
 
         return {
