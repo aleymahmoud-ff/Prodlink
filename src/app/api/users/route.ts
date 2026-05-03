@@ -112,23 +112,25 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { id, email, username, full_name, password, role, is_active, line_ids } = body;
 
-    const updateData: Record<string, unknown> = {
-      email,
-      username: username || null,
-      fullName: full_name,
-      role,
-      isActive: is_active,
-    };
-
-    // Only update password if provided
-    if (password) {
-      updateData.passwordHash = await bcrypt.hash(password, 12);
+    if (!id) {
+      return NextResponse.json({ error: 'ID required' }, { status: 400 });
     }
 
-    const [updated] = await db.update(profiles)
-      .set(updateData)
-      .where(eq(profiles.id, id))
-      .returning();
+    const updateData: Record<string, unknown> = {};
+    if (email !== undefined) updateData.email = email;
+    if (username !== undefined) updateData.username = username || null;
+    if (full_name !== undefined) updateData.fullName = full_name;
+    if (role !== undefined) updateData.role = role;
+    if (is_active !== undefined) updateData.isActive = is_active;
+    if (password) updateData.passwordHash = await bcrypt.hash(password, 12);
+
+    const [updated] = Object.keys(updateData).length > 0
+      ? await db.update(profiles).set(updateData).where(eq(profiles.id, id)).returning()
+      : await db.select().from(profiles).where(eq(profiles.id, id));
+
+    if (!updated) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
 
     // Update line assignments
     if (line_ids !== undefined) {
@@ -155,7 +157,8 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error('Update user error:', error);
-    return NextResponse.json({ error: 'Failed to update user' }, { status: 500 });
+    const message = error instanceof Error ? error.message : 'Failed to update user';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
