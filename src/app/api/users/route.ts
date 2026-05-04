@@ -6,6 +6,22 @@ import bcrypt from 'bcryptjs';
 
 export const dynamic = 'force-dynamic';
 
+function explainDbError(error: unknown, fallback: string): string {
+  // Drizzle wraps the pg driver error; the real reason lives on .cause
+  type PgErr = { code?: string; detail?: string; constraint?: string; message?: string };
+  const root = (error as { cause?: PgErr } | null)?.cause ?? (error as PgErr);
+  if (root?.code === '23505') {
+    const field = root.constraint?.includes('email') ? 'email'
+      : root.constraint?.includes('username') ? 'username'
+      : 'value';
+    return `That ${field} is already in use by another user.`;
+  }
+  if (root?.code === '23503') return 'Cannot update: this user is referenced by other records.';
+  if (root?.detail) return root.detail;
+  if (root?.message) return root.message;
+  return error instanceof Error ? error.message : fallback;
+}
+
 export async function GET() {
   try {
     const session = await auth();
@@ -98,7 +114,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Create user error:', error);
-    return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+    return NextResponse.json({ error: explainDbError(error, 'Failed to create user') }, { status: 500 });
   }
 }
 
@@ -157,8 +173,7 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error('Update user error:', error);
-    const message = error instanceof Error ? error.message : 'Failed to update user';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: explainDbError(error, 'Failed to update user') }, { status: 500 });
   }
 }
 
@@ -185,6 +200,6 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Delete user error:', error);
-    return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 });
+    return NextResponse.json({ error: explainDbError(error, 'Failed to delete user') }, { status: 500 });
   }
 }
