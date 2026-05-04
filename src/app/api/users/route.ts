@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db, profiles, userLineAssignments, lines } from '@/shared/lib/db';
-import { eq, desc, inArray } from 'drizzle-orm';
+import {
+  db,
+  profiles,
+  userLineAssignments,
+  lines,
+  approvalLevelAssignments,
+  wasteApprovals,
+} from '@/shared/lib/db';
+import { eq, desc, inArray, sql } from 'drizzle-orm';
 import { auth } from '@/auth';
 import bcrypt from 'bcryptjs';
 
 export const dynamic = 'force-dynamic';
 
-function explainDbError(error: unknown, fallback: string): string {
+function explainDbError(error: unknown, fallback: string, action: 'update' | 'delete' | 'create' = 'update'): string {
   // Drizzle wraps the pg driver error; the real reason lives on .cause
   type PgErr = { code?: string; detail?: string; constraint?: string; message?: string };
   const root = (error as { cause?: PgErr } | null)?.cause ?? (error as PgErr);
@@ -16,7 +23,11 @@ function explainDbError(error: unknown, fallback: string): string {
       : 'value';
     return `That ${field} is already in use by another user.`;
   }
-  if (root?.code === '23503') return 'Cannot update: this user is referenced by other records.';
+  if (root?.code === '23503') {
+    return action === 'delete'
+      ? 'Cannot delete: this user has records in the system. Deactivate the account instead.'
+      : `Cannot ${action}: this user is referenced by other records.`;
+  }
   if (root?.detail) return root.detail;
   if (root?.message) return root.message;
   return error instanceof Error ? error.message : fallback;
@@ -114,7 +125,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Create user error:', error);
-    return NextResponse.json({ error: explainDbError(error, 'Failed to create user') }, { status: 500 });
+    return NextResponse.json({ error: explainDbError(error, 'Failed to create user', 'create') }, { status: 500 });
   }
 }
 
@@ -191,15 +202,37 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'ID required' }, { status: 400 });
     }
 
-    // Delete line assignments first
+    // Block delete if the user actually authored production data — those FKs are RESTRICT.
+    const result = await db.execute<{
+      production: number; damage: number; reprocessing: number; waste: number;
+    }>(sql`
+      select
+        (select count(*)::int from production_entries where created_by = ${id}) as production,
+        (select count(*)::int from damage_entries where created_by = ${id}) as damage,
+        (select count(*)::int from reprocessing_entries where created_by = ${id}) as reprocessing,
+        (select count(*)::int from waste_entries where created_by = ${id}) as waste
+    `);
+    const counts = result.rows[0];
+    const blocking = Object.entries(counts ?? {}).filter(([, n]) => Number(n) > 0);
+    if (blocking.length > 0) {
+      const summary = blocking.map(([t, n]) => `${n} ${t}`).join(', ');
+      return NextResponse.json(
+        { error: `Cannot delete: user authored ${summary} record(s). Deactivate the account instead.` },
+        { status: 409 }
+      );
+    }
+
+    // Detach references that are safe to clear so the delete won't trip on stale FK rules.
+    await db.update(lines).set({ formApproverId: null }).where(eq(lines.formApproverId, id));
+    await db.update(wasteApprovals).set({ approvedBy: null }).where(eq(wasteApprovals.approvedBy, id));
+    await db.delete(approvalLevelAssignments).where(eq(approvalLevelAssignments.userId, id));
     await db.delete(userLineAssignments).where(eq(userLineAssignments.userId, id));
 
-    // Delete user
     await db.delete(profiles).where(eq(profiles.id, id));
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Delete user error:', error);
-    return NextResponse.json({ error: explainDbError(error, 'Failed to delete user') }, { status: 500 });
+    return NextResponse.json({ error: explainDbError(error, 'Failed to delete user', 'delete') }, { status: 500 });
   }
 }
