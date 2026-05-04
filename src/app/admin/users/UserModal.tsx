@@ -92,7 +92,7 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
             id: user.id,
             email,
             full_name: fullName,
-            username: username || null,
+            username,
             role: role,
             is_active: isActive,
             ...(password ? { password } : {}),
@@ -117,7 +117,7 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
-            username: username || null,
+            username,
             password,
             full_name: fullName,
             role,
@@ -201,7 +201,9 @@ export function UserModal({ user, onClose, onSave }: UserModalProps) {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9._-]/g, ''))}
-                    placeholder="Optional - for login without email"
+                    required
+                    minLength={3}
+                    placeholder="lowercase letters, digits, . _ -"
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>

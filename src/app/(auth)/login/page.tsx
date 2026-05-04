@@ -9,6 +9,7 @@ function LoginForm() {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
+  const [signupUsername, setSignupUsername] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
@@ -58,7 +59,7 @@ function LoginForm() {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: login, password, fullName }),
+        body: JSON.stringify({ email: login, password, fullName, username: signupUsername }),
       })
 
       const data = await response.json()
@@ -238,21 +239,39 @@ function LoginForm() {
           {/* Form */}
           <form onSubmit={isSignUp ? handleSignUp : handleEmailLogin} className="space-y-3">
             {isSignUp && (
-              <div className="relative">
-                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                  <User className="w-4 h-4 text-slate-500" />
+              <>
+                <div className="relative">
+                  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <User className="w-4 h-4 text-slate-500" />
+                  </div>
+                  <input
+                    id="fullName"
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                    disabled={isLoading}
+                    className="w-full ps-10 pe-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all disabled:bg-slate-800/30 disabled:text-slate-500"
+                    placeholder="Full name"
+                  />
                 </div>
-                <input
-                  id="fullName"
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                  disabled={isLoading}
-                  className="w-full ps-10 pe-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all disabled:bg-slate-800/30 disabled:text-slate-500"
-                  placeholder="Full name"
-                />
-              </div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <User className="w-4 h-4 text-slate-500" />
+                  </div>
+                  <input
+                    id="signupUsername"
+                    type="text"
+                    value={signupUsername}
+                    onChange={(e) => setSignupUsername(e.target.value.toLowerCase().replace(/[^a-z0-9._-]/g, ''))}
+                    required
+                    minLength={3}
+                    disabled={isLoading}
+                    className="w-full ps-10 pe-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all disabled:bg-slate-800/30 disabled:text-slate-500"
+                    placeholder="Username"
+                  />
+                </div>
+              </>
             )}
 
             <div className="relative">

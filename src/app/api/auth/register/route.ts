@@ -7,9 +7,16 @@ export async function POST(request: NextRequest) {
   try {
     const { email, username, password, fullName } = await request.json();
 
-    if (!email || !password) {
+    if (!email || !password || !username) {
       return NextResponse.json(
-        { error: 'Email and password are required' },
+        { error: 'Username, email and password are required' },
+        { status: 400 }
+      );
+    }
+
+    if (typeof username !== 'string' || username.length < 3 || !/^[a-z0-9._-]+$/.test(username)) {
+      return NextResponse.json(
+        { error: 'Username must be at least 3 characters (lowercase letters, digits, . _ -)' },
         { status: 400 }
       );
     }
@@ -47,7 +54,7 @@ export async function POST(request: NextRequest) {
       .insert(profiles)
       .values({
         email,
-        username: username || null,
+        username,
         passwordHash,
         fullName: fullName || email,
         role: isFirstUser ? 'admin' : 'engineer',

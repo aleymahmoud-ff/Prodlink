@@ -13,6 +13,13 @@ import bcrypt from 'bcryptjs';
 
 export const dynamic = 'force-dynamic';
 
+function validateUsername(value: unknown): string | null {
+  if (typeof value !== 'string' || value.trim().length === 0) return 'Username is required';
+  if (value.length < 3) return 'Username must be at least 3 characters';
+  if (!/^[a-z0-9._-]+$/.test(value)) return 'Username may only contain lowercase letters, digits, . _ -';
+  return null;
+}
+
 function explainDbError(error: unknown, fallback: string, action: 'update' | 'delete' | 'create' = 'update'): string {
   // Drizzle wraps the pg driver error; the real reason lives on .cause
   type PgErr = { code?: string; detail?: string; constraint?: string; message?: string };
@@ -94,12 +101,17 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { email, username, full_name, password, role, is_active, line_ids } = body;
 
+    const usernameError = validateUsername(username);
+    if (usernameError) return NextResponse.json({ error: usernameError }, { status: 400 });
+    if (!email) return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    if (!full_name) return NextResponse.json({ error: 'Full name is required' }, { status: 400 });
+
     // Hash password if provided
     const passwordHash = password ? await bcrypt.hash(password, 12) : null;
 
     const [newUser] = await db.insert(profiles).values({
       email,
-      username: username || null,
+      username,
       fullName: full_name,
       passwordHash,
       role: role || 'engineer',
@@ -143,9 +155,14 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'ID required' }, { status: 400 });
     }
 
+    if (username !== undefined) {
+      const usernameError = validateUsername(username);
+      if (usernameError) return NextResponse.json({ error: usernameError }, { status: 400 });
+    }
+
     const updateData: Record<string, unknown> = {};
     if (email !== undefined) updateData.email = email;
-    if (username !== undefined) updateData.username = username || null;
+    if (username !== undefined) updateData.username = username;
     if (full_name !== undefined) updateData.fullName = full_name;
     if (role !== undefined) updateData.role = role;
     if (is_active !== undefined) updateData.isActive = is_active;
