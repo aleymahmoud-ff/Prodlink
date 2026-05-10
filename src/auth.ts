@@ -21,22 +21,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new InvalidLoginError('missing_credentials');
         }
 
-        const login = (credentials.login as string).trim();
+        const login = (credentials.login as string).trim().toLowerCase();
         const password = credentials.password as string;
 
         // Dynamic imports to avoid loading pg in Edge runtime (middleware)
         const { db, profiles } = await import('@/shared/lib/db');
-        const { eq, or } = await import('drizzle-orm');
+        const { or, sql } = await import('drizzle-orm');
         const bcrypt = await import('bcryptjs');
 
-        // Find user by email or username
+        // Find user by email or username (case-insensitive — mobile keyboards
+        // auto-capitalize, and emails/usernames are stored lowercase).
         const [user] = await db
           .select()
           .from(profiles)
           .where(
             login.includes('@')
-              ? eq(profiles.email, login)
-              : or(eq(profiles.username, login), eq(profiles.email, login))
+              ? sql`lower(${profiles.email}) = ${login}`
+              : or(
+                  sql`lower(${profiles.username}) = ${login}`,
+                  sql`lower(${profiles.email}) = ${login}`
+                )
           )
           .limit(1);
 

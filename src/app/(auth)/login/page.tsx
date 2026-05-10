@@ -267,6 +267,10 @@ function LoginForm() {
                     required
                     minLength={3}
                     disabled={isLoading}
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    autoComplete="username"
                     className="w-full ps-10 pe-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all disabled:bg-slate-800/30 disabled:text-slate-500"
                     placeholder="Username"
                   />
@@ -280,11 +284,16 @@ function LoginForm() {
               </div>
               <input
                 id="login"
-                type="text"
+                type={isSignUp ? 'email' : 'text'}
                 value={login}
                 onChange={(e) => setLogin(e.target.value)}
                 required
                 disabled={isLoading}
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                inputMode={isSignUp ? 'email' : 'text'}
+                autoComplete={isSignUp ? 'email' : 'username'}
                 className="w-full ps-10 pe-4 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all disabled:bg-slate-800/30 disabled:text-slate-500"
                 placeholder={isSignUp ? 'Email address' : 'Username or email'}
               />
@@ -302,6 +311,10 @@ function LoginForm() {
                 required
                 minLength={6}
                 disabled={isLoading}
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                autoComplete={isSignUp ? 'new-password' : 'current-password'}
                 className="w-full ps-10 pe-10 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all disabled:bg-slate-800/30 disabled:text-slate-500"
                 placeholder="Password"
               />
