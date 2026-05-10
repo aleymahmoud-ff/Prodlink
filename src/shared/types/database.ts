@@ -65,6 +65,10 @@ export interface ProductionEntry {
   notes: string | null
   created_by: string
   created_at: string
+  // Calendar day (YYYY-MM-DD) this entry represents in the user's browser TZ.
+  // Set explicitly on submit for new rows; backfilled from created_at in
+  // factory TZ for legacy rows.
+  production_date: string
 }
 
 export interface ProductionEntryWithRelations extends ProductionEntry {

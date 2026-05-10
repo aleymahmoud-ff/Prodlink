@@ -8,6 +8,7 @@ import {
   integer,
   pgEnum,
   unique,
+  date,
 } from 'drizzle-orm/pg-core';
 
 // ============================================
@@ -112,6 +113,9 @@ export const productionEntries = pgTable('production_entries', {
   notes: text('notes'),
   createdBy: uuid('created_by').notNull().references(() => profiles.id, { onDelete: 'restrict' }),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  // Calendar day this entry represents in the user's browser TZ.
+  // Distinct from createdAt; see specs/001-backdated-production-entries.
+  productionDate: date('production_date', { mode: 'string' }).notNull().defaultNow(),
 });
 
 // ============================================

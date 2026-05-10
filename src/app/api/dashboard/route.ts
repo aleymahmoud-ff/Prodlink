@@ -3,6 +3,27 @@ import { db, productionEntries, wasteEntries, damageEntries, reprocessingEntries
 import { eq, gte, sql, desc } from 'drizzle-orm';
 import { auth } from '@/auth';
 
+/**
+ * Compute today's calendar date in the configured factory time zone, as
+ * YYYY-MM-DD. Live data-entry pages use the user's browser TZ; this server
+ * route uses a single canonical TZ so cross-user dashboards agree on "today."
+ * See specs/001-backdated-production-entries/research.md (Decision 2).
+ */
+function factoryTodayISO(): string {
+  const tz = process.env.FACTORY_TIMEZONE || 'Africa/Cairo';
+  // Intl gives us Y/M/D parts in the requested TZ without monkey-patching Date.
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: tz,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+  const y = parts.find(p => p.type === 'year')?.value;
+  const m = parts.find(p => p.type === 'month')?.value;
+  const d = parts.find(p => p.type === 'day')?.value;
+  return `${y}-${m}-${d}`;
+}
+
 export async function GET() {
   try {
     const session = await auth();
@@ -12,47 +33,48 @@ export async function GET() {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const factoryToday = factoryTodayISO();
 
-    // Fetch today's production count
+    // Today's production count — keyed by production_date (FR-016).
     const [productionResult] = await db
       .select({ count: sql<number>`count(*)` })
       .from(productionEntries)
-      .where(gte(productionEntries.createdAt, today));
+      .where(eq(productionEntries.productionDate, factoryToday));
 
-    // Fetch pending waste approvals
+    // Pending waste approvals (unrelated to production_date).
     const [pendingResult] = await db
       .select({ count: sql<number>`count(*)` })
       .from(wasteEntries)
       .where(eq(wasteEntries.approvalStatus, 'pending'));
 
-    // Fetch today's waste count
+    // Today's waste / reprocessing — out of scope; still keyed by created_at.
     const [wasteResult] = await db
       .select({ count: sql<number>`count(*)` })
       .from(wasteEntries)
       .where(gte(wasteEntries.createdAt, today));
 
-    // Fetch today's reprocessing count
     const [reprocessingResult] = await db
       .select({ count: sql<number>`count(*)` })
       .from(reprocessingEntries)
       .where(gte(reprocessingEntries.createdAt, today));
 
-    // Fetch recent production entries
+    // Recent production entries — sorted by production_date then insertion.
     const recentProduction = await db
       .select({
         id: productionEntries.id,
         quantity: productionEntries.quantity,
         createdAt: productionEntries.createdAt,
+        productionDate: productionEntries.productionDate,
         productName: products.name,
         userName: profiles.fullName,
       })
       .from(productionEntries)
       .leftJoin(products, eq(productionEntries.productId, products.id))
       .leftJoin(profiles, eq(productionEntries.createdBy, profiles.id))
-      .orderBy(desc(productionEntries.createdAt))
+      .orderBy(desc(productionEntries.productionDate), desc(productionEntries.createdAt))
       .limit(5);
 
-    // Fetch recent waste entries
+    // Recent waste / damage — out of scope; still by created_at.
     const recentWaste = await db
       .select({
         id: wasteEntries.id,
@@ -67,7 +89,6 @@ export async function GET() {
       .orderBy(desc(wasteEntries.createdAt))
       .limit(5);
 
-    // Fetch recent damage entries
     const recentDamage = await db
       .select({
         id: damageEntries.id,
@@ -82,7 +103,8 @@ export async function GET() {
       .orderBy(desc(damageEntries.createdAt))
       .limit(5);
 
-    // Combine and format activities
+    // Combine and format activities. Production rows expose production_date;
+    // damage / waste rows continue to use created_at as their day key.
     const activities = [
       ...recentProduction.map(e => ({
         id: e.id,
@@ -90,6 +112,7 @@ export async function GET() {
         product_name: e.productName || 'Unknown',
         quantity: Number(e.quantity),
         created_at: e.createdAt.toISOString(),
+        production_date: e.productionDate,
         user_name: e.userName || 'Unknown',
       })),
       ...recentWaste.map(e => ({

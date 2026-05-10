@@ -20,6 +20,8 @@ interface RecentActivity {
   product_name: string
   quantity: number
   created_at: string
+  // Production rows expose this; non-production rows do not (FR-016 scope).
+  production_date?: string
   user_name: string
 }
 
@@ -100,6 +102,18 @@ export default function DashboardPage() {
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
+    }).format(date)
+  }
+
+  // For production rows, the meaningful date is the production calendar day
+  // (FR-016) — not the insertion timestamp. ISO 'YYYY-MM-DD' parsed as local.
+  const formatProductionDate = (iso: string) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso
+    const [y, m, d] = iso.split('-').map(Number)
+    const date = new Date(y, m - 1, d)
+    return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-SA' : 'en-US', {
+      month: 'short',
+      day: 'numeric',
     }).format(date)
   }
 
@@ -231,7 +245,9 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div className="text-sm text-slate-400 font-medium whitespace-nowrap">
-                      {formatDate(activity.created_at)}
+                      {activity.type === 'production' && activity.production_date
+                        ? formatProductionDate(activity.production_date)
+                        : formatDate(activity.created_at)}
                     </div>
                   </div>
                 )

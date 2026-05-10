@@ -1,4 +1,4 @@
-# CLAUDE.md - AI Assistant Guide for ProdLink
+﻿# CLAUDE.md - AI Assistant Guide for ProdLink
 
 This document provides guidance for AI assistants working with the ProdLink codebase.
 

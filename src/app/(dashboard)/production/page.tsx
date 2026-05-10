@@ -1,11 +1,18 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { Header } from '@/shared/components/layout/Header'
 import { Button } from '@/shared/components/ui/Button'
 import { useUser } from '@/features/auth/hooks/useUser'
 import { useTranslation } from '@/shared/i18n'
-import { Factory, Filter, Save, History, Search, ArrowUpDown, ArrowUp, ArrowDown, CheckCircle, Package } from 'lucide-react'
+import {
+  clientTodayISO,
+  clientYesterdayISO,
+  formatDayLabel,
+  useMidnightTick,
+} from '@/shared/lib/date/factory-day'
+import { ExceptionalEntryForm } from './exceptional-entry-form'
+import { Factory, Filter, Save, History, Search, ArrowUpDown, ArrowUp, ArrowDown, CheckCircle, Package, CalendarClock, ShieldCheck } from 'lucide-react'
 
 interface Line {
   id: string
@@ -35,6 +42,7 @@ interface ProductionEntry {
   notes: string | null
   created_by: string
   created_at: string
+  production_date: string
   lines?: { id: string; name: string; code: string; type?: string }
   products?: { id: string; name: string; code: string }
   profiles?: { id: string; full_name: string }
@@ -47,9 +55,13 @@ interface ProductEntry {
 }
 
 interface ProductTotals {
+  // "Today" here means the currently-selected production date (Today or Yesterday).
+  // The names are kept for backwards-compatibility with existing column headers.
   userToday: number
   globalToday: number
 }
+
+type ProductionMode = 'today' | 'yesterday'
 
 const UNIT_OPTIONS = [
   { value: 'unit', label: 'Unit / Piece' },
@@ -69,12 +81,20 @@ export default function ProductionPage() {
   const [entries, setEntries] = useState<ProductionEntry[]>([])
   const [lines, setLines] = useState<Line[]>([])
   const [products, setProducts] = useState<Product[]>([])
-  const [todayEntries, setTodayEntries] = useState<ProductionEntry[]>([])
+  const [dayEntries, setDayEntries] = useState<ProductionEntry[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [showHistory, setShowHistory] = useState(false)
+
+  // Today / Yesterday toggle. Resets to 'today' on every page load (FR-002).
+  const [mode, setMode] = useState<ProductionMode>('today')
+  // Bumped by useMidnightTick to force re-derivation of the resolved dates
+  // and re-fetching when the local clock crosses midnight (FR-007a).
+  const [dayTick, setDayTick] = useState(0)
+  // Admin-only Exceptional Entry view (Story 2). Hidden from non-admins.
+  const [showExceptional, setShowExceptional] = useState(false)
 
   // Filters
   const [selectedLineId, setSelectedLineId] = useState<string>('')
@@ -91,30 +111,24 @@ export default function ProductionPage() {
   const { user, profile } = useUser()
   const { t } = useTranslation()
 
-  useEffect(() => {
-    if (user) {
-      fetchData()
-    }
-  }, [user?.id])
+  // Resolved calendar dates for the toggle. Recomputed when the day ticks.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const todayISO = useMemo(() => clientTodayISO(), [dayTick])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const yesterdayISO = useMemo(() => clientYesterdayISO(), [dayTick])
+  const selectedDateISO = mode === 'today' ? todayISO : yesterdayISO
 
-  // Reset product entries when line changes
-  useEffect(() => {
-    setProductEntries({})
-    setProductSearch('')
-  }, [selectedLineId])
+  // Re-arm the midnight refresh whenever this component is mounted.
+  useMidnightTick(() => setDayTick(t => t + 1))
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true)
-
     try {
-      const today = new Date()
-      today.setHours(0, 0, 0, 0)
-
-      const [entriesRes, linesRes, productsRes, todayEntriesRes] = await Promise.all([
+      const [entriesRes, linesRes, productsRes, dayEntriesRes] = await Promise.all([
         fetch('/api/production'),
         fetch('/api/lines'),
         fetch('/api/products'),
-        fetch(`/api/production?start_date=${today.toISOString()}`),
+        fetch(`/api/production?date=${selectedDateISO}`),
       ])
 
       if (entriesRes.ok) {
@@ -129,16 +143,28 @@ export default function ProductionPage() {
         const data = await productsRes.json()
         setProducts(data.filter((p: Product) => p.is_active))
       }
-      if (todayEntriesRes.ok) {
-        const data = await todayEntriesRes.json()
-        setTodayEntries(data)
+      if (dayEntriesRes.ok) {
+        const data = await dayEntriesRes.json()
+        setDayEntries(data)
       }
     } catch (err) {
       console.error('Error fetching data:', err)
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [selectedDateISO])
+
+  useEffect(() => {
+    if (user) {
+      fetchData()
+    }
+  }, [user?.id, fetchData])
+
+  // Reset product entries when line changes
+  useEffect(() => {
+    setProductEntries({})
+    setProductSearch('')
+  }, [selectedLineId])
 
   // Filter lines by type
   const filteredLines = selectedLineType
@@ -150,15 +176,15 @@ export default function ProductionPage() {
     ? products.filter(p => p.line_id === selectedLineId)
     : []
 
-  // Calculate totals for each product
+  // Calculate totals for each product on the currently-selected day
   const productTotals = useMemo(() => {
     const totals: Record<string, ProductTotals> = {}
 
     lineProducts.forEach(product => {
-      const userEntries = todayEntries.filter(
+      const userEntries = dayEntries.filter(
         e => e.product_id === product.id && e.created_by === profile?.id
       )
-      const globalEntries = todayEntries.filter(
+      const globalEntries = dayEntries.filter(
         e => e.product_id === product.id
       )
 
@@ -169,7 +195,7 @@ export default function ProductionPage() {
     })
 
     return totals
-  }, [lineProducts, todayEntries, profile?.id])
+  }, [lineProducts, dayEntries, profile?.id])
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
@@ -262,6 +288,11 @@ export default function ProductionPage() {
     setError(null)
     setSuccess(null)
 
+    // Snapshot the dates at submit time so a midnight tick mid-flight can't
+    // change which day the entries land on.
+    const productionDate = selectedDateISO
+    const clientToday = todayISO
+
     try {
       // Submit each entry
       for (const entry of validEntries) {
@@ -273,15 +304,24 @@ export default function ProductionPage() {
             product_id: entry.product_id,
             quantity: parseFloat(entry.quantity),
             unit_of_measure: entry.unit_of_measure,
+            production_date: productionDate,
+            client_today: clientToday,
           }),
         })
 
         if (!response.ok) {
+          const data = await response.json().catch(() => ({}))
+          if (response.status === 403 && data?.error === 'backdate_not_allowed_for_role') {
+            throw new Error('Only admins can record production for an earlier date. Use the Exceptional Entry view.')
+          }
+          if (response.status === 400 && data?.error === 'invalid_production_date') {
+            throw new Error('Invalid production date. Please reload and try again.')
+          }
           throw new Error('Failed to save entry')
         }
       }
 
-      setSuccess(`Successfully recorded ${validEntries.length} production ${validEntries.length === 1 ? 'entry' : 'entries'}`)
+      setSuccess(`Successfully recorded ${validEntries.length} production ${validEntries.length === 1 ? 'entry' : 'entries'} for ${formatDayLabel(productionDate)}`)
       setProductEntries({})
       fetchData()
     } catch (err) {
@@ -310,18 +350,86 @@ export default function ProductionPage() {
           </div>
         }
         actions={
-          <Button
-            variant={showHistory ? 'primary' : 'outline'}
-            onClick={() => setShowHistory(!showHistory)}
-            className="rounded-xl"
-          >
-            <History className="w-4 h-4 me-2" />
-            {showHistory ? 'Hide History' : 'Show History'}
-          </Button>
+          <div className="flex items-center gap-2">
+            {profile?.role === 'admin' && (
+              <Button
+                variant={showExceptional ? 'primary' : 'outline'}
+                onClick={() => setShowExceptional(v => !v)}
+                className="rounded-xl"
+              >
+                <ShieldCheck className="w-4 h-4 me-2" />
+                {showExceptional ? 'Hide Exceptional Entry' : 'Exceptional Entry'}
+              </Button>
+            )}
+            <Button
+              variant={showHistory ? 'primary' : 'outline'}
+              onClick={() => setShowHistory(!showHistory)}
+              className="rounded-xl"
+            >
+              <History className="w-4 h-4 me-2" />
+              {showHistory ? 'Hide History' : 'Show History'}
+            </Button>
+          </div>
         }
       />
 
       <div className="p-6 space-y-6">
+        {/* Today / Yesterday toggle */}
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+          <div className="px-6 py-4 flex flex-wrap items-center gap-4 justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-gradient-to-br from-amber-400 to-amber-500 rounded-xl shadow-sm">
+                <CalendarClock className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-slate-900">Production date</h3>
+                <p className="text-sm text-slate-500">
+                  Entries you submit will be recorded for{' '}
+                  <span className="font-medium text-slate-700">{formatDayLabel(selectedDateISO)}</span>.
+                </p>
+              </div>
+            </div>
+            <div role="tablist" aria-label="Production date" className="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mode === 'today'}
+                onClick={() => setMode('today')}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  mode === 'today'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Today <span className="text-xs text-slate-500">({formatDayLabel(todayISO)})</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mode === 'yesterday'}
+                onClick={() => setMode('yesterday')}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  mode === 'yesterday'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Yesterday <span className="text-xs text-slate-500">({formatDayLabel(yesterdayISO)})</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Exceptional Entry — admin only. Non-admins render no DOM at all. */}
+        {profile?.role === 'admin' && showExceptional && (
+          <ExceptionalEntryForm
+            lines={lines}
+            products={products}
+            onClose={() => setShowExceptional(false)}
+            onSaved={fetchData}
+          />
+        )}
+
         {/* Filters Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
           <div className="px-6 py-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
@@ -626,7 +734,10 @@ export default function ProductionPage() {
                   <thead className="bg-slate-50/80">
                     <tr>
                       <th className="px-6 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                        {t('production.dateTime')}
+                        Production date
+                      </th>
+                      <th className="px-6 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                        Recorded at
                       </th>
                       <th className="px-6 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider">
                         {t('production.line')}
@@ -645,6 +756,9 @@ export default function ProductionPage() {
                   <tbody className="bg-white divide-y divide-slate-100">
                     {entries.map((entry) => (
                       <tr key={entry.id} className="hover:bg-slate-50/50 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-slate-700">
+                          {formatDayLabel(entry.production_date)}
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
                           {formatDate(entry.created_at)}
                         </td>
