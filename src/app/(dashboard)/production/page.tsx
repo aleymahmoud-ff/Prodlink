@@ -81,17 +81,21 @@ export default function ProductionPage() {
   const [entries, setEntries] = useState<ProductionEntry[]>([])
   const [lines, setLines] = useState<Line[]>([])
   const [products, setProducts] = useState<Product[]>([])
-  const [dayEntries, setDayEntries] = useState<ProductionEntry[]>([])
+  // Entries fetched per day so per-row totals can use either day's data.
+  const [todayEntries, setTodayEntries] = useState<ProductionEntry[]>([])
+  const [yesterdayEntries, setYesterdayEntries] = useState<ProductionEntry[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [showHistory, setShowHistory] = useState(false)
 
-  // Today / Yesterday toggle. Resets to 'today' on every page load (FR-002).
-  const [mode, setMode] = useState<ProductionMode>('today')
+  // Per-row Today/Yesterday selection. Defaults to 'today' for any product
+  // that has not been individually flipped (or bulk-set). Resets to empty
+  // on every page load (FR-002) so each session starts from Today.
+  const [rowModes, setRowModes] = useState<Record<string, ProductionMode>>({})
   // Bumped by useMidnightTick to force re-derivation of the resolved dates
-  // and re-fetching when the local clock crosses midnight (FR-007a).
+  // when the local clock crosses midnight (FR-007a).
   const [dayTick, setDayTick] = useState(0)
   // Admin-only Exceptional Entry view (Story 2). Hidden from non-admins.
   const [showExceptional, setShowExceptional] = useState(false)
@@ -116,7 +120,12 @@ export default function ProductionPage() {
   const todayISO = useMemo(() => clientTodayISO(), [dayTick])
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const yesterdayISO = useMemo(() => clientYesterdayISO(), [dayTick])
-  const selectedDateISO = mode === 'today' ? todayISO : yesterdayISO
+
+  // Resolve a row's currently-selected production date.
+  const getRowMode = (productId: string): ProductionMode =>
+    rowModes[productId] ?? 'today'
+  const getRowDateISO = (productId: string): string =>
+    getRowMode(productId) === 'today' ? todayISO : yesterdayISO
 
   // Re-arm the midnight refresh whenever this component is mounted.
   useMidnightTick(() => setDayTick(t => t + 1))
@@ -124,11 +133,12 @@ export default function ProductionPage() {
   const fetchData = useCallback(async () => {
     setIsLoading(true)
     try {
-      const [entriesRes, linesRes, productsRes, dayEntriesRes] = await Promise.all([
+      const [entriesRes, linesRes, productsRes, todayRes, yesterdayRes] = await Promise.all([
         fetch('/api/production'),
         fetch('/api/lines'),
         fetch('/api/products'),
-        fetch(`/api/production?date=${selectedDateISO}`),
+        fetch(`/api/production?date=${todayISO}`),
+        fetch(`/api/production?date=${yesterdayISO}`),
       ])
 
       if (entriesRes.ok) {
@@ -143,16 +153,20 @@ export default function ProductionPage() {
         const data = await productsRes.json()
         setProducts(data.filter((p: Product) => p.is_active))
       }
-      if (dayEntriesRes.ok) {
-        const data = await dayEntriesRes.json()
-        setDayEntries(data)
+      if (todayRes.ok) {
+        const data = await todayRes.json()
+        setTodayEntries(data)
+      }
+      if (yesterdayRes.ok) {
+        const data = await yesterdayRes.json()
+        setYesterdayEntries(data)
       }
     } catch (err) {
       console.error('Error fetching data:', err)
     } finally {
       setIsLoading(false)
     }
-  }, [selectedDateISO])
+  }, [todayISO, yesterdayISO])
 
   useEffect(() => {
     if (user) {
@@ -160,10 +174,11 @@ export default function ProductionPage() {
     }
   }, [user?.id, fetchData])
 
-  // Reset product entries when line changes
+  // Reset product entries and per-row date selections when line changes
   useEffect(() => {
     setProductEntries({})
     setProductSearch('')
+    setRowModes({})
   }, [selectedLineId])
 
   // Filter lines by type
@@ -176,15 +191,19 @@ export default function ProductionPage() {
     ? products.filter(p => p.line_id === selectedLineId)
     : []
 
-  // Calculate totals for each product on the currently-selected day
+  // Calculate totals for each product on its OWN selected day. Each row's
+  // toggle picks Today or Yesterday independently, so totals must follow.
   const productTotals = useMemo(() => {
     const totals: Record<string, ProductTotals> = {}
 
     lineProducts.forEach(product => {
-      const userEntries = dayEntries.filter(
+      const mode = rowModes[product.id] ?? 'today'
+      const source = mode === 'today' ? todayEntries : yesterdayEntries
+
+      const userEntries = source.filter(
         e => e.product_id === product.id && e.created_by === profile?.id
       )
-      const globalEntries = dayEntries.filter(
+      const globalEntries = source.filter(
         e => e.product_id === product.id
       )
 
@@ -195,7 +214,7 @@ export default function ProductionPage() {
     })
 
     return totals
-  }, [lineProducts, dayEntries, profile?.id])
+  }, [lineProducts, todayEntries, yesterdayEntries, rowModes, profile?.id])
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
@@ -290,12 +309,17 @@ export default function ProductionPage() {
 
     // Snapshot the dates at submit time so a midnight tick mid-flight can't
     // change which day the entries land on.
-    const productionDate = selectedDateISO
     const clientToday = todayISO
+    const today = todayISO
+    const yesterday = yesterdayISO
+    // Resolve each row's date snapshot up-front to avoid mid-loop drift.
+    const rows = validEntries.map((entry) => ({
+      ...entry,
+      production_date: (rowModes[entry.product_id] ?? 'today') === 'today' ? today : yesterday,
+    }))
 
     try {
-      // Submit each entry
-      for (const entry of validEntries) {
+      for (const entry of rows) {
         const response = await fetch('/api/production', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -304,7 +328,7 @@ export default function ProductionPage() {
             product_id: entry.product_id,
             quantity: parseFloat(entry.quantity),
             unit_of_measure: entry.unit_of_measure,
-            production_date: productionDate,
+            production_date: entry.production_date,
             client_today: clientToday,
           }),
         })
@@ -321,7 +345,11 @@ export default function ProductionPage() {
         }
       }
 
-      setSuccess(`Successfully recorded ${validEntries.length} production ${validEntries.length === 1 ? 'entry' : 'entries'} for ${formatDayLabel(productionDate)}`)
+      const dates = Array.from(new Set(rows.map(r => r.production_date))).sort()
+      const dateSummary = dates.length === 1
+        ? `for ${formatDayLabel(dates[0])}`
+        : `across ${dates.map(formatDayLabel).join(' and ')}`
+      setSuccess(`Successfully recorded ${rows.length} production ${rows.length === 1 ? 'entry' : 'entries'} ${dateSummary}`)
       setProductEntries({})
       fetchData()
     } catch (err) {
@@ -374,7 +402,8 @@ export default function ProductionPage() {
       />
 
       <div className="p-6 space-y-6">
-        {/* Today / Yesterday toggle */}
+        {/* Bulk-set production date for every visible row. Each row also has
+            its own per-row toggle that can override this. */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
           <div className="px-6 py-4 flex flex-wrap items-center gap-4 justify-between">
             <div className="flex items-center gap-3">
@@ -382,39 +411,38 @@ export default function ProductionPage() {
                 <CalendarClock className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-900">Production date</h3>
+                <h3 className="font-semibold text-slate-900">Set all rows</h3>
                 <p className="text-sm text-slate-500">
-                  Entries you submit will be recorded for{' '}
-                  <span className="font-medium text-slate-700">{formatDayLabel(selectedDateISO)}</span>.
+                  Apply a date to every product in the table. Each row can be flipped individually.
                 </p>
               </div>
             </div>
-            <div role="tablist" aria-label="Production date" className="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1">
+            <div className="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1">
               <button
                 type="button"
-                role="tab"
-                aria-selected={mode === 'today'}
-                onClick={() => setMode('today')}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  mode === 'today'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
+                onClick={() => {
+                  if (filteredAndSortedProducts.length === 0) return
+                  const next: Record<string, ProductionMode> = { ...rowModes }
+                  filteredAndSortedProducts.forEach(p => { next[p.id] = 'today' })
+                  setRowModes(next)
+                }}
+                disabled={filteredAndSortedProducts.length === 0}
+                className="px-4 py-2 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-transparent"
               >
-                Today <span className="text-xs text-slate-500">({formatDayLabel(todayISO)})</span>
+                All to Today <span className="text-xs text-slate-500">({formatDayLabel(todayISO)})</span>
               </button>
               <button
                 type="button"
-                role="tab"
-                aria-selected={mode === 'yesterday'}
-                onClick={() => setMode('yesterday')}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  mode === 'yesterday'
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
+                onClick={() => {
+                  if (filteredAndSortedProducts.length === 0) return
+                  const next: Record<string, ProductionMode> = { ...rowModes }
+                  filteredAndSortedProducts.forEach(p => { next[p.id] = 'yesterday' })
+                  setRowModes(next)
+                }}
+                disabled={filteredAndSortedProducts.length === 0}
+                className="px-4 py-2 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-transparent"
               >
-                Yesterday <span className="text-xs text-slate-500">({formatDayLabel(yesterdayISO)})</span>
+                All to Yesterday <span className="text-xs text-slate-500">({formatDayLabel(yesterdayISO)})</span>
               </button>
             </div>
           </div>
@@ -585,6 +613,9 @@ export default function ProductionPage() {
                           <SortIcon field="name" />
                         </div>
                       </th>
+                      <th className="px-4 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider w-44">
+                        Date
+                      </th>
                       <th className="px-6 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider w-40">
                         Quantity
                       </th>
@@ -628,6 +659,42 @@ export default function ProductionPage() {
                               {product.category}
                             </div>
                           )}
+                        </td>
+                        <td className="px-4 py-4 whitespace-nowrap">
+                          <div
+                            role="radiogroup"
+                            aria-label={`Production date for ${product.name}`}
+                            className="inline-flex rounded-lg border border-slate-200 bg-slate-50 p-0.5"
+                          >
+                            <button
+                              type="button"
+                              role="radio"
+                              aria-checked={getRowMode(product.id) === 'today'}
+                              title={`Today (${formatDayLabel(todayISO)})`}
+                              onClick={() => setRowModes(prev => ({ ...prev, [product.id]: 'today' }))}
+                              className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
+                                getRowMode(product.id) === 'today'
+                                  ? 'bg-white text-slate-900 shadow-sm'
+                                  : 'text-slate-600 hover:text-slate-900'
+                              }`}
+                            >
+                              Today
+                            </button>
+                            <button
+                              type="button"
+                              role="radio"
+                              aria-checked={getRowMode(product.id) === 'yesterday'}
+                              title={`Yesterday (${formatDayLabel(yesterdayISO)})`}
+                              onClick={() => setRowModes(prev => ({ ...prev, [product.id]: 'yesterday' }))}
+                              className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
+                                getRowMode(product.id) === 'yesterday'
+                                  ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-200'
+                                  : 'text-slate-600 hover:text-slate-900'
+                              }`}
+                            >
+                              Yesterday
+                            </button>
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <input
