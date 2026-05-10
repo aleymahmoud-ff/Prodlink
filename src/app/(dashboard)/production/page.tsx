@@ -402,52 +402,6 @@ export default function ProductionPage() {
       />
 
       <div className="p-6 space-y-6">
-        {/* Bulk-set production date for every visible row. Each row also has
-            its own per-row toggle that can override this. */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
-          <div className="px-6 py-4 flex flex-wrap items-center gap-4 justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-amber-400 to-amber-500 rounded-xl shadow-sm">
-                <CalendarClock className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-slate-900">Set all rows</h3>
-                <p className="text-sm text-slate-500">
-                  Apply a date to every product in the table. Each row can be flipped individually.
-                </p>
-              </div>
-            </div>
-            <div className="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1">
-              <button
-                type="button"
-                onClick={() => {
-                  if (filteredAndSortedProducts.length === 0) return
-                  const next: Record<string, ProductionMode> = { ...rowModes }
-                  filteredAndSortedProducts.forEach(p => { next[p.id] = 'today' })
-                  setRowModes(next)
-                }}
-                disabled={filteredAndSortedProducts.length === 0}
-                className="px-4 py-2 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-transparent"
-              >
-                All to Today <span className="text-xs text-slate-500">({formatDayLabel(todayISO)})</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (filteredAndSortedProducts.length === 0) return
-                  const next: Record<string, ProductionMode> = { ...rowModes }
-                  filteredAndSortedProducts.forEach(p => { next[p.id] = 'yesterday' })
-                  setRowModes(next)
-                }}
-                disabled={filteredAndSortedProducts.length === 0}
-                className="px-4 py-2 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-transparent"
-              >
-                All to Yesterday <span className="text-xs text-slate-500">({formatDayLabel(yesterdayISO)})</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Exceptional Entry — admin only. Non-admins render no DOM at all. */}
         {profile?.role === 'admin' && showExceptional && (
           <ExceptionalEntryForm
@@ -528,6 +482,54 @@ export default function ProductionPage() {
               <CheckCircle className="w-4 h-4" />
             </div>
             {success}
+          </div>
+        )}
+
+        {/* Set all rows — sits directly above the products table. Only shown
+            when a line is selected (otherwise there's nothing to act on). */}
+        {selectedLineId && (
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+            <div className="px-6 py-4 flex flex-wrap items-center gap-4 justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-gradient-to-br from-amber-400 to-amber-500 rounded-xl shadow-sm">
+                  <CalendarClock className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-900">Set all rows</h3>
+                  <p className="text-sm text-slate-500">
+                    Apply a date to every product in the table. Each row can be flipped individually.
+                  </p>
+                </div>
+              </div>
+              <div className="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (filteredAndSortedProducts.length === 0) return
+                    const next: Record<string, ProductionMode> = { ...rowModes }
+                    filteredAndSortedProducts.forEach(p => { next[p.id] = 'today' })
+                    setRowModes(next)
+                  }}
+                  disabled={filteredAndSortedProducts.length === 0}
+                  className="px-4 py-2 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-transparent"
+                >
+                  All to Today <span className="text-xs text-slate-500">({formatDayLabel(todayISO)})</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (filteredAndSortedProducts.length === 0) return
+                    const next: Record<string, ProductionMode> = { ...rowModes }
+                    filteredAndSortedProducts.forEach(p => { next[p.id] = 'yesterday' })
+                    setRowModes(next)
+                  }}
+                  disabled={filteredAndSortedProducts.length === 0}
+                  className="px-4 py-2 text-sm font-medium rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-colors disabled:opacity-50 disabled:hover:bg-transparent"
+                >
+                  All to Yesterday <span className="text-xs text-slate-500">({formatDayLabel(yesterdayISO)})</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
@@ -674,7 +676,7 @@ export default function ProductionPage() {
                               onClick={() => setRowModes(prev => ({ ...prev, [product.id]: 'today' }))}
                               className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors ${
                                 getRowMode(product.id) === 'today'
-                                  ? 'bg-white text-slate-900 shadow-sm'
+                                  ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200'
                                   : 'text-slate-600 hover:text-slate-900'
                               }`}
                             >
