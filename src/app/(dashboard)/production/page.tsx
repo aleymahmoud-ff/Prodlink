@@ -621,7 +621,7 @@ export default function ProductionPage() {
                       <th className="px-6 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider w-40">
                         Quantity
                       </th>
-                      <th className="px-6 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider w-36">
+                      <th className="px-6 py-4 text-start text-xs font-semibold text-slate-600 uppercase tracking-wider w-48">
                         Unit
                       </th>
                       <th
