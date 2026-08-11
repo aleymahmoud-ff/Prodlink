@@ -1,0 +1,153 @@
+/* ProdLink mockup design tokens.
+   Every colour used anywhere in a screen must come from one of these variables.
+   Never hard-code a colour in a component rule — dark mode depends on it. */
+
+:root {
+  /* canvas */
+  --canvas-w: 1920px;
+  --canvas-h: 1080px;
+  --sidebar-w: 288px;
+  --header-h: 88px;
+  --pad: 24px;
+  --gap: 20px;
+
+  /* radius */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+
+  /* surfaces */
+  --bg: #f6f8fb;
+  --bg-tint: #eef4ff;
+  --card: #ffffff;
+  --nav: #ffffff;
+  --inner: #f8fafc;
+  --inner-2: #f1f5f9;
+  --overlay: rgba(255, 255, 255, 0.8);
+
+  /* text */
+  --text: #0f172a;
+  --text-2: #334155;
+  --muted: #64748b;
+  --muted-2: #94a3b8;
+
+  /* lines */
+  --border: #e2e8f0;
+  --border-soft: #f1f5f9;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+
+  /* primary */
+  --primary: #2563eb;
+  --primary-2: #3b82f6;
+  --primary-fg: #ffffff;
+  --primary-tint: #eff6ff;
+  --ring: rgba(37, 99, 235, 0.18);
+
+  /* accents — hue, soft tint, and text-on-tint, one triple per accent */
+  --indigo: #6366f1;   --indigo-tint: #eef2ff;   --indigo-ink: #4f46e5;
+  --emerald: #10b981;  --emerald-tint: #ecfdf5;  --emerald-ink: #047857;
+  --rose: #f43f5e;     --rose-tint: #fff1f2;     --rose-ink: #be123c;
+  --red: #ef4444;      --red-tint: #fef2f2;      --red-ink: #b91c1c;
+  --amber: #f59e0b;    --amber-tint: #fffbeb;    --amber-ink: #b45309;
+  --purple: #a855f7;   --purple-tint: #faf5ff;   --purple-ink: #7e22ce;
+  --violet: #8b5cf6;   --violet-tint: #f5f3ff;   --violet-ink: #6d28d9;
+  --cyan: #06b6d4;     --cyan-tint: #ecfeff;     --cyan-ink: #0e7490;
+  --blue: #3b82f6;     --blue-tint: #eff6ff;     --blue-ink: #1d4ed8;
+  --slate: #64748b;    --slate-tint: #f1f5f9;    --slate-ink: #334155;
+
+  /* gradients (logo mark, header icon tiles, primary buttons) */
+  --grad-logo: linear-gradient(135deg, #6366f1, #9333ea);
+  --grad-primary: linear-gradient(135deg, #3b82f6, #2563eb);
+  --grad-emerald: linear-gradient(135deg, #34d399, #10b981);
+  --grad-rose: linear-gradient(135deg, #fb7185, #f43f5e);
+  --grad-amber: linear-gradient(135deg, #fbbf24, #f59e0b);
+  --grad-violet: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  --grad-cyan: linear-gradient(135deg, #22d3ee, #06b6d4);
+  --grad-welcome: linear-gradient(100deg, #2563eb 0%, #3b82f6 45%, #8b5cf6 100%);
+  --on-grad: #ffffff;
+  --on-grad-soft: rgba(255, 255, 255, 0.76);
+  --on-grad-panel: rgba(255, 255, 255, 0.12);
+
+  /* printed-document preview — a PDF proof stays paper-white in both themes */
+  --paper: #ffffff;
+  --paper-ink: #0f172a;
+  --paper-muted: #64748b;
+  --paper-line: #cbd5e1;
+  --paper-head: #f1f5f9;
+
+  /* charts */
+  --c1: #3b82f6;
+  --c2: #10b981;
+  --c3: #f59e0b;
+  --c4: #f43f5e;
+  --c5: #8b5cf6;
+  --grid: #eef2f7;
+  --axis: #94a3b8;
+  --target: #94a3b8;
+}
+
+.dark {
+  --bg: #080d17;
+  --bg-tint: #0e1728;
+  --card: #101a2c;
+  --nav: #0c1423;
+  --inner: #16223a;
+  --inner-2: #1b2942;
+  --overlay: rgba(12, 20, 35, 0.8);
+
+  --text: #e8eefb;
+  --text-2: #cbd6e8;
+  --muted: #93a4bd;
+  --muted-2: #6c7f9b;
+
+  --border: #23304a;
+  --border-soft: #1a2438;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -14px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+
+  --primary: #3b82f6;
+  --primary-2: #60a5fa;
+  --primary-fg: #06101f;
+  --primary-tint: #16263f;
+  --ring: rgba(96, 165, 250, 0.3);
+
+  --indigo: #818cf8;   --indigo-tint: #1e2450;   --indigo-ink: #a5b4fc;
+  --emerald: #34d399;  --emerald-tint: #0c2f2a;  --emerald-ink: #6ee7b7;
+  --rose: #fb7185;     --rose-tint: #3a1626;     --rose-ink: #fda4af;
+  --red: #f87171;      --red-tint: #3a1a1c;      --red-ink: #fca5a5;
+  --amber: #fbbf24;    --amber-tint: #35270d;    --amber-ink: #fcd34d;
+  --purple: #c084fc;   --purple-tint: #2c1a45;   --purple-ink: #d8b4fe;
+  --violet: #a78bfa;   --violet-tint: #251d4a;   --violet-ink: #c4b5fd;
+  --cyan: #22d3ee;     --cyan-tint: #0b3040;     --cyan-ink: #67e8f9;
+  --blue: #60a5fa;     --blue-tint: #14263f;     --blue-ink: #93c5fd;
+  --slate: #94a3b8;    --slate-tint: #1c2740;    --slate-ink: #cbd5e1;
+
+  --grad-logo: linear-gradient(135deg, #6366f1, #9333ea);
+  --grad-primary: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  --grad-emerald: linear-gradient(135deg, #10b981, #059669);
+  --grad-rose: linear-gradient(135deg, #f43f5e, #e11d48);
+  --grad-amber: linear-gradient(135deg, #f59e0b, #d97706);
+  --grad-violet: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  --grad-cyan: linear-gradient(135deg, #06b6d4, #0891b2);
+  --grad-welcome: linear-gradient(100deg, #1d4ed8 0%, #2563eb 45%, #6d28d9 100%);
+  --on-grad: #f8fafc;
+  --on-grad-soft: rgba(248, 250, 252, 0.72);
+  --on-grad-panel: rgba(255, 255, 255, 0.1);
+
+  --paper: #f2f4f8;
+  --paper-ink: #131b2b;
+  --paper-muted: #55637a;
+  --paper-line: #b6c0d0;
+  --paper-head: #e2e7ef;
+
+  --c1: #60a5fa;
+  --c2: #34d399;
+  --c3: #fbbf24;
+  --c4: #fb7185;
+  --c5: #a78bfa;
+  --grid: #1e2b44;
+  --axis: #6c7f9b;
+  --target: #7c8ba5;
+}

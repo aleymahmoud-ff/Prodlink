@@ -1,0 +1,223 @@
+<!--
+name: Export Waste Report
+title: Export Waste Report
+subtitle: Generate PDF reports for ISO compliance documentation
+page: /waste/export
+icon: i-file-text
+tone: blue
+grad: primary
+-->
+
+<template id="page-actions">
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-printer"/></svg>
+    Print
+  </div>
+  <div class="btn btn-primary">
+    <svg class="icon icon-sm"><use href="#i-download"/></svg>
+    Download PDF
+  </div>
+</template>
+
+<main>
+  <div class="row" style="flex:1;min-height:0">
+
+    <!-- LEFT — filters + explainer -->
+    <div class="col" style="width:620px;flex:none">
+
+      <section class="card" style="height:574px">
+        <div class="card-head">
+          <div class="card-title-row">
+            <span class="card-tile tile-blue"><svg class="icon"><use href="#i-filter"/></svg></span>
+            <div>
+              <h3 class="card-title">Report Filters</h3>
+              <p class="card-sub">Narrow the records included in the PDF</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body col" style="gap:16px">
+          <div class="field">
+            <label class="label">Production Line</label>
+            <div class="control">L-05 Baklava Line<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+          </div>
+          <div class="grid-2" style="gap:16px">
+            <div class="field">
+              <label class="label">Date From</label>
+              <div class="control"><svg class="icon icon-sm lead"><use href="#i-calendar"/></svg>01 Aug 2026</div>
+            </div>
+            <div class="field">
+              <label class="label">Date To</label>
+              <div class="control"><svg class="icon icon-sm lead"><use href="#i-calendar"/></svg>11 Aug 2026</div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Approval Status</label>
+            <div class="control">Approved only<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+          </div>
+          <div class="field">
+            <label class="label">Categories</label>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:2px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="check on"><svg class="icon icon-sm"><use href="#i-check"/></svg></span>
+                <span style="font-size:13.5px;color:var(--text-2)">Oriental</span>
+                <span class="badge b-slate" style="margin-inline-start:auto">42 entries</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="check on"><svg class="icon icon-sm"><use href="#i-check"/></svg></span>
+                <span style="font-size:13.5px;color:var(--text-2)">Viennoiserie</span>
+                <span class="badge b-slate" style="margin-inline-start:auto">31 entries</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="check"><svg class="icon icon-sm"><use href="#i-check"/></svg></span>
+                <span style="font-size:13.5px;color:var(--muted)">Danish</span>
+                <span class="badge b-slate" style="margin-inline-start:auto">18 entries</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="check"><svg class="icon icon-sm"><use href="#i-check"/></svg></span>
+                <span style="font-size:13.5px;color:var(--muted)">Semi-Finished</span>
+                <span class="badge b-slate" style="margin-inline-start:auto">9 entries</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-foot">
+          <span>73 of 100 entries match</span>
+          <div class="btn btn-primary"><svg class="icon icon-sm"><use href="#i-file-text"/></svg>Generate PDF</div>
+        </div>
+      </section>
+
+      <section class="card" style="flex:1">
+        <div class="card-head">
+          <div class="card-title-row">
+            <span class="card-tile tile-blue"><svg class="icon"><use href="#i-circle-alert"/></svg></span>
+            <div>
+              <h3 class="card-title">About Waste Reports</h3>
+              <p class="card-sub">How the signed form fits the ISO record</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:11px">
+            <span class="badge b-blue" style="height:22px">1</span>
+            <span style="font-size:13px;color:var(--muted);line-height:1.5">
+              The PDF lists every waste entry that cleared the full approval chain in the selected period,
+              with reason, batch number and the approver at each level.</span>
+          </div>
+          <div style="display:flex;gap:11px">
+            <span class="badge b-blue" style="height:22px">2</span>
+            <span style="font-size:13px;color:var(--muted);line-height:1.5">
+              Print it, collect the physical signatures, then mark <b style="color:var(--text-2)">Form Approved</b>
+              against the entry so the digital and paper records agree.</span>
+          </div>
+          <div style="display:flex;gap:11px">
+            <span class="badge b-blue" style="height:22px">3</span>
+            <span style="font-size:13px;color:var(--muted);line-height:1.5">
+              The responsible signatory is configured per line under
+              <b style="color:var(--text-2)">Settings › Lines › Form Approver</b>.</span>
+          </div>
+          <div class="notice notice-blue" style="margin-top:auto">
+            <svg class="icon icon-lg"><use href="#i-file-check"/></svg>
+            <div>
+              <div class="n-title">Last export</div>
+              <div class="n-body">WD-04 / 2026-08-04 · 68 entries · signed and filed on 05 Aug by Fouad Chami</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- RIGHT — document preview -->
+    <section class="card" style="flex:1">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-blue"><svg class="icon"><use href="#i-file-text"/></svg></span>
+          <div>
+            <h3 class="card-title">Preview · WD-04</h3>
+            <p class="card-sub">Waste Disposal Record · page 1 of 2</p>
+          </div>
+        </div>
+        <span class="badge b-emerald badge-pill">
+          <svg class="icon icon-sm"><use href="#i-circle-check"/></svg>Ready to download
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="paper">
+          <div class="paper-head">
+            <div>
+              <h4>WASTE DISPOSAL RECORD</h4>
+              <div class="doc-sub">ISO 22000 · Clause 8.5.4 — Control of nonconforming product · Form WD-04 rev. 3</div>
+            </div>
+            <div>
+              <div class="doc-org">Golden Crust Pastries Co.</div>
+              <div class="doc-sub" style="text-align:end">Plant 2 · Damascus Road Industrial Zone</div>
+            </div>
+          </div>
+          <div class="rule"></div>
+          <div class="meta">
+            <div><div class="k">Production line</div><div class="v">L-05 Baklava Line</div></div>
+            <div><div class="k">Period</div><div class="v">01 – 11 Aug 2026</div></div>
+            <div><div class="k">Report number</div><div class="v">WD-04 / 2026-08-11</div></div>
+            <div><div class="k">Generated by</div><div class="v">Rania Fadel</div></div>
+            <div><div class="k">Entries included</div><div class="v">73 (approved only)</div></div>
+            <div><div class="k">Categories</div><div class="v">Oriental, Viennoiserie</div></div>
+            <div><div class="k">Total quantity</div><div class="v">1,284.60 kg</div></div>
+            <div><div class="k">Disposal method</div><div class="v">Licensed contractor — GC-WM-07</div></div>
+          </div>
+
+          <table class="doc">
+            <thead>
+              <tr>
+                <th style="width:78px">Date</th>
+                <th>Product</th>
+                <th style="width:104px">Batch</th>
+                <th style="width:90px">Qty</th>
+                <th style="width:150px">Reason</th>
+                <th style="width:128px">Approved by</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>01 Aug</td><td>Baklava Assorted 1kg</td><td>BK-2601-A03</td><td>32.50 kg</td><td>Burnt / over-baked</td><td>F. Chami</td></tr>
+              <tr><td>02 Aug</td><td>Kunafa Tray 2kg</td><td>BK-2602-A11</td><td>18.00 kg</td><td>Failed QA inspection</td><td>F. Chami</td></tr>
+              <tr><td>03 Aug</td><td>Baklava Assorted 1kg</td><td>BK-2603-B02</td><td>27.40 kg</td><td>Expired shelf life</td><td>H. Darwish</td></tr>
+              <tr><td>04 Aug</td><td>Butter Croissant 60g</td><td>CR-2604-A08</td><td>21.60 kg</td><td>Burnt / over-baked</td><td>F. Chami</td></tr>
+              <tr><td>05 Aug</td><td>Kunafa Tray 2kg</td><td>BK-2605-C01</td><td>44.20 kg</td><td>Oven malfunction</td><td>F. Chami</td></tr>
+              <tr><td>06 Aug</td><td>Pain au Chocolat 70g</td><td>CR-2606-A14</td><td>16.90 kg</td><td>Contamination risk</td><td>H. Darwish</td></tr>
+              <tr><td>07 Aug</td><td>Baklava Assorted 1kg</td><td>BK-2607-B09</td><td>38.75 kg</td><td>Failed QA inspection</td><td>F. Chami</td></tr>
+              <tr><td>08 Aug</td><td>Mini Croissant 25g</td><td>CR-2608-A02</td><td>12.30 kg</td><td>Fallen on floor</td><td>H. Darwish</td></tr>
+              <tr><td>09 Aug</td><td>Kunafa Tray 2kg</td><td>BK-2609-A05</td><td>29.85 kg</td><td>Expired shelf life</td><td>F. Chami</td></tr>
+              <tr><td>10 Aug</td><td>Baklava Assorted 1kg</td><td>BK-2610-B07</td><td>27.50 kg</td><td>Oven malfunction</td><td>F. Chami</td></tr>
+              <tr><td>11 Aug</td><td>Almond Croissant 90g</td><td>CR-2611-A01</td><td>19.40 kg</td><td>Burnt / over-baked</td><td>H. Darwish</td></tr>
+              <tr class="total"><td colspan="3">Page subtotal — 11 of 73 entries</td><td>288.40 kg</td><td colspan="2">Carried forward to page 2</td></tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top:10px;border:1px solid var(--paper-line);border-radius:4px;padding:9px 12px;font-size:11px;color:var(--paper-muted);height:56px">
+            <b style="color:var(--paper-ink)">Declaration —</b> the quantities above were segregated from saleable stock at the point of
+            rejection, held in the quarantine bay and released to the licensed disposal contractor. Digital approval was recorded in
+            ProdLink at every configured level before this form was printed.
+          </div>
+
+          <div class="sign-row">
+            <div class="sign-box">
+              <div class="r">Level 1 · Shift Supervisor</div>
+              <div class="n">Tarek Mansour</div>
+              <div class="l">Signature / date</div>
+            </div>
+            <div class="sign-box">
+              <div class="r">Level 2 · QA Manager</div>
+              <div class="n">Hana Darwish</div>
+              <div class="l">Signature / date</div>
+            </div>
+            <div class="sign-box">
+              <div class="r">Level 3 · Plant Manager</div>
+              <div class="n">Fouad Chami</div>
+              <div class="l">Signature / date</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>

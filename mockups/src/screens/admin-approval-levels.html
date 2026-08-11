@@ -1,0 +1,240 @@
+<!--
+name: Settings — Approval Levels
+title: Settings
+subtitle: Manage your application preferences
+page: /admin/approval-levels
+icon: i-settings
+tone: blue
+grad: primary
+-->
+
+<template id="page-actions">
+  <span class="badge b-emerald badge-pill">
+    <svg class="icon icon-sm"><use href="#i-circle-check"/></svg>Neon PostgreSQL · Connected
+  </span>
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-globe"/></svg>
+    English
+  </div>
+</template>
+
+<main class="admin">
+  <nav class="subnav" data-subnav></nav>
+
+  <div class="col" style="flex:1">
+
+    <section class="card" style="height:439px">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-blue"><svg class="icon"><use href="#i-git-branch"/></svg></span>
+          <div>
+            <h3 class="card-title">Approval Levels</h3>
+            <p class="card-sub">Define the chain a waste entry must clear before it is finalized</p>
+          </div>
+        </div>
+        <div class="btn btn-primary"><svg class="icon icon-sm"><use href="#i-plus"/></svg>Add Level</div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="t fixed" style="--rh:72px">
+          <thead>
+            <tr>
+              <th style="width:110px">Order</th>
+              <th>Level Name</th>
+              <th style="width:210px">Approval Type</th>
+              <th style="width:330px">Approvers</th>
+              <th style="width:130px">Status</th>
+              <th style="width:170px" class="end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge b-blue badge-pill">Level 1</span></td>
+              <td><div class="t-strong">Shift Supervisor</div><div class="t-sub">مشرف الوردية</div></td>
+              <td><span class="badge b-slate">Sequential</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span class="stack"><span class="avatar avatar-xs">T</span><span class="avatar avatar-xs">O</span></span>
+                  <span class="muted">Tarek Mansour, Omar Kassab</span>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-users"/></svg></span>
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon danger"><svg class="icon icon-sm"><use href="#i-trash"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><span class="badge b-blue badge-pill">Level 2</span></td>
+              <td><div class="t-strong">QA Manager</div><div class="t-sub">مدير الجودة</div></td>
+              <td><span class="badge b-slate">Sequential</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span class="stack"><span class="avatar avatar-xs">H</span></span>
+                  <span class="muted">Hana Darwish</span>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-users"/></svg></span>
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon danger"><svg class="icon icon-sm"><use href="#i-trash"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><span class="badge b-blue badge-pill">Level 3</span></td>
+              <td><div class="t-strong">Plant Manager</div><div class="t-sub">مدير المصنع</div></td>
+              <td><span class="badge b-slate">Sequential</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span class="stack"><span class="avatar avatar-xs">F</span></span>
+                  <span class="muted">Fouad Chami</span>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-users"/></svg></span>
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon danger"><svg class="icon icon-sm"><use href="#i-trash"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><span class="badge b-blue badge-pill">Level 4</span></td>
+              <td><div class="t-strong">Finance &amp; Compliance</div><div class="t-sub">المالية والالتزام</div></td>
+              <td><span class="badge b-violet">Parallel</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span class="stack"><span class="avatar avatar-xs">R</span><span class="avatar avatar-xs">D</span>
+                    <span class="avatar avatar-xs">Y</span></span>
+                  <span class="muted">Rania Fadel, Dina Aboud, +1</span>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-users"/></svg></span>
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon danger"><svg class="icon icon-sm"><use href="#i-trash"/></svg></span>
+              </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-foot">
+        <span>4 levels · 7 approvers assigned</span>
+        <span>Reordering a level applies to new submissions only — entries already in flight keep their chain</span>
+      </div>
+    </section>
+
+    <section class="card" style="flex:1">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-violet"><svg class="icon"><use href="#i-clipboard-check"/></svg></span>
+          <div>
+            <h3 class="card-title">How Approval Workflow Works</h3>
+            <p class="card-sub">Current chain for a waste entry submitted today</p>
+          </div>
+        </div>
+        <span class="badge b-slate badge-pill">Average time to finalize: 19h 40m</span>
+      </div>
+
+      <div class="card-body col" style="gap:20px">
+
+        <div class="flow" style="height:130px">
+          <div class="flow-step">
+            <div class="lv">Submitted</div>
+            <div class="nm">Production Engineer</div>
+            <div class="who" style="margin-top:10px;gap:8px">
+              <span class="avatar avatar-xs">O</span>
+              <span class="muted" style="font-size:12.5px">Omar Kassab · 11 Aug, 14:52</span>
+            </div>
+            <div class="bar" style="margin-top:12px"><span style="width:100%;background:var(--emerald)"></span></div>
+          </div>
+          <div class="flow-arrow"><svg class="icon"><use href="#i-arrow-right"/></svg></div>
+          <div class="flow-step">
+            <div class="lv">Level 1 · Sequential</div>
+            <div class="nm">Shift Supervisor</div>
+            <div class="who" style="margin-top:10px;gap:8px">
+              <span class="avatar avatar-xs">T</span>
+              <span class="muted" style="font-size:12.5px">Approved 10 Aug, 16:40</span>
+            </div>
+            <div class="bar" style="margin-top:12px"><span style="width:100%;background:var(--emerald)"></span></div>
+          </div>
+          <div class="flow-arrow"><svg class="icon"><use href="#i-arrow-right"/></svg></div>
+          <div class="flow-step" style="border-color:var(--amber);background:var(--amber-tint)">
+            <div class="lv" style="color:var(--amber-ink)">Level 2 · Sequential</div>
+            <div class="nm">QA Manager</div>
+            <div class="who" style="margin-top:10px;gap:8px">
+              <span class="avatar avatar-xs">H</span>
+              <span style="font-size:12.5px;color:var(--amber-ink);font-weight:600">Waiting 27h</span>
+            </div>
+            <div class="bar" style="margin-top:12px"><span style="width:46%;background:var(--amber)"></span></div>
+          </div>
+          <div class="flow-arrow"><svg class="icon"><use href="#i-arrow-right"/></svg></div>
+          <div class="flow-step" style="opacity:.62">
+            <div class="lv">Level 3 · Sequential</div>
+            <div class="nm">Plant Manager</div>
+            <div class="who" style="margin-top:10px;gap:8px">
+              <span class="avatar avatar-xs">F</span>
+              <span class="muted" style="font-size:12.5px">Not started</span>
+            </div>
+            <div class="bar" style="margin-top:12px"><span style="width:0"></span></div>
+          </div>
+          <div class="flow-arrow"><svg class="icon"><use href="#i-arrow-right"/></svg></div>
+          <div class="flow-step" style="opacity:.62">
+            <div class="lv">Level 4 · Parallel</div>
+            <div class="nm">Finance &amp; Compliance</div>
+            <div class="who" style="margin-top:10px;gap:8px">
+              <span class="stack"><span class="avatar avatar-xs">R</span><span class="avatar avatar-xs">D</span></span>
+              <span class="muted" style="font-size:12.5px">All 3 at once</span>
+            </div>
+            <div class="bar" style="margin-top:12px"><span style="width:0"></span></div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="height:110px">
+          <div class="notice" style="align-items:flex-start">
+            <span class="card-tile tile-blue" style="width:30px;height:30px">
+              <svg class="icon icon-sm"><use href="#i-arrow-right"/></svg></span>
+            <div>
+              <div class="n-title">Sequential</div>
+              <div class="n-body" style="color:var(--muted)">One level at a time. The entry only reaches the next level once
+                any approver on the current level has signed off.</div>
+            </div>
+          </div>
+          <div class="notice" style="align-items:flex-start">
+            <span class="card-tile tile-violet" style="width:30px;height:30px">
+              <svg class="icon icon-sm"><use href="#i-users"/></svg></span>
+            <div>
+              <div class="n-title">Parallel</div>
+              <div class="n-body" style="color:var(--muted)">Every approver on the level is asked at the same time, and all of
+                them must approve before the entry moves on.</div>
+            </div>
+          </div>
+          <div class="notice" style="align-items:flex-start">
+            <span class="card-tile tile-emerald" style="width:30px;height:30px">
+              <svg class="icon icon-sm"><use href="#i-file-check"/></svg></span>
+            <div>
+              <div class="n-title">Form Approved</div>
+              <div class="n-body" style="color:var(--muted)">After the chain completes, the printed WD-04 is signed and marked
+                against the entry to close the ISO record.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice notice-amber" style="flex:1;align-items:center">
+          <svg class="icon icon-lg"><use href="#i-circle-alert"/></svg>
+          <div>
+            <div class="n-title">2 entries have been waiting at Level 2 for more than 24 hours</div>
+            <div class="n-body">Hana Darwish is the only approver assigned to that level — adding a second approver
+              would let either of them clear the queue.</div>
+          </div>
+          <span class="spacer"></span>
+          <span class="btn btn-outline">Assign approver</span>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,128 @@
+<!--
+name: Sign In
+title: Sign In
+subtitle: ProdLink
+page: /login
+icon: i-logo
+tone: indigo
+grad: primary
+shell: none
+-->
+
+<main style="flex:1;display:flex;min-width:0">
+
+  <!-- LEFT — brand panel -->
+  <section style="width:1060px;flex:none;position:relative;overflow:hidden;background:var(--grad-welcome);
+                  color:var(--on-grad);display:flex;flex-direction:column;justify-content:center;padding:0 96px">
+    <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 1060 1080"
+         preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.5">
+        <circle cx="880" cy="200" r="150"/>
+        <circle cx="880" cy="200" r="230"/>
+        <circle cx="880" cy="200" r="320"/>
+        <circle cx="120" cy="940" r="180"/>
+        <circle cx="120" cy="940" r="270"/>
+      </g>
+      <g fill="rgba(255,255,255,.09)">
+        <circle cx="930" cy="760" r="190"/>
+        <circle cx="60" cy="240" r="120"/>
+      </g>
+      <g fill="rgba(255,255,255,.5)">
+        <circle cx="760" cy="410" r="3"/><circle cx="840" cy="520" r="2"/><circle cx="690" cy="620" r="2.5"/>
+        <circle cx="960" cy="330" r="2"/><circle cx="300" cy="820" r="2.5"/><circle cx="210" cy="700" r="2"/>
+      </g>
+    </svg>
+
+    <div style="position:relative">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.16);
+                     display:flex;align-items:center;justify-content:center">
+          <svg class="icon" style="width:34px;height:34px"><use href="#i-logo"/></svg>
+        </span>
+        <div>
+          <div style="font-size:34px;font-weight:750;letter-spacing:-0.025em">ProdLink</div>
+          <div style="font-size:14px;color:var(--on-grad-soft);font-weight:600;margin-top:-2px">Production Manager</div>
+        </div>
+      </div>
+
+      <h2 style="margin:44px 0 0;font-size:42px;line-height:1.16;font-weight:700;letter-spacing:-0.03em;max-width:760px">
+        Every kilogram off the line,<br>recorded where it happened.
+      </h2>
+      <p style="margin:20px 0 0;font-size:17px;line-height:1.6;color:var(--on-grad-soft);max-width:660px">
+        Production, waste, damage and reprocessing captured on the shop floor — with a multi-level
+        approval chain and an ISO-ready disposal record at the end of it.
+      </p>
+
+      <div style="display:flex;gap:14px;margin-top:48px">
+        <div class="welcome-chip" style="min-width:0;padding:16px 22px;text-align:start">
+          <div class="v" style="font-size:26px">24</div>
+          <div class="k" style="font-size:12.5px">Production lines</div>
+        </div>
+        <div class="welcome-chip" style="min-width:0;padding:16px 22px;text-align:start">
+          <div class="v" style="font-size:26px">318</div>
+          <div class="k" style="font-size:12.5px">Products tracked</div>
+        </div>
+        <div class="welcome-chip" style="min-width:0;padding:16px 22px;text-align:start">
+          <div class="v" style="font-size:26px">24/7</div>
+          <div class="k" style="font-size:12.5px">Three shifts, no paper</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;margin-top:56px;font-size:13px;color:var(--on-grad-soft)">
+        <svg class="icon icon-sm"><use href="#i-shield-check"/></svg>
+        ISO 22000 · Clause 8.5.4 waste documentation built in
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT — sign-in card -->
+  <section style="flex:1;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:0 72px">
+    <div style="width:100%;max-width:420px">
+      <h1 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.025em;color:var(--text)">Sign In</h1>
+      <p style="margin:8px 0 0;font-size:14.5px;color:var(--muted)">
+        Welcome back — sign in to record production for Golden Crust Pastries Co.
+      </p>
+
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:18px">
+        <div class="field">
+          <label class="label">Username or Email</label>
+          <div class="control"><svg class="icon icon-sm lead"><use href="#i-user"/></svg>o.kassab</div>
+        </div>
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control focus"><svg class="icon icon-sm lead"><use href="#i-lock"/></svg>
+            <span style="letter-spacing:0.18em">••••••••••</span>
+          </div>
+        </div>
+        <div class="btn btn-primary" style="height:48px;justify-content:center;font-size:15px">
+          <svg class="icon icon-sm"><use href="#i-log-out"/></svg>Sign In
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:14px;margin:26px 0">
+        <span style="flex:1;height:1px;background:var(--border)"></span>
+        <span style="font-size:12px;font-weight:600;color:var(--muted-2)">Or continue with</span>
+        <span style="flex:1;height:1px;background:var(--border)"></span>
+      </div>
+
+      <div class="btn btn-outline" style="height:48px;width:100%;justify-content:center;font-size:14.5px">
+        <svg class="icon icon-sm" style="fill:currentColor;stroke:none"><use href="#i-google"/></svg>
+        Sign in with Google
+      </div>
+
+      <div class="notice notice-blue" style="margin-top:26px">
+        <svg class="icon icon-lg"><use href="#i-circle-alert"/></svg>
+        <div>
+          <div class="n-title">Accounts are created by your administrator</div>
+          <div class="n-body">There is no self-registration. Google sign-in works only for
+            addresses that already have a ProdLink account.</div>
+        </div>
+      </div>
+
+      <p style="margin:26px 0 0;font-size:12px;color:var(--muted-2);text-align:center">
+        ProdLink v0.1 · Golden Crust Pastries Co. · العربية / English
+      </p>
+    </div>
+  </section>
+
+</main>

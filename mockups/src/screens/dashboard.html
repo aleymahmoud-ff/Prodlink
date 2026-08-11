@@ -1,0 +1,312 @@
+<!--
+name: Dashboard
+title: Dashboard
+subtitle: Here's what's happening today
+page: /
+icon: i-dashboard
+tone: indigo
+grad: primary
+-->
+
+<template id="page-actions">
+  <div class="segment">
+    <span>Today</span>
+    <span class="on">Last 7 days</span>
+    <span>Month</span>
+  </div>
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-bell"/></svg>
+    Alerts
+    <span class="badge b-rose badge-pill" style="margin-inline-start:2px">3</span>
+  </div>
+</template>
+
+<main>
+
+  <!-- ROW 1 — welcome banner -->
+  <section class="welcome" style="height:112px">
+    <div>
+      <div class="kicker">Welcome back</div>
+      <h2>Rania Fadel</h2>
+      <p class="line">Golden Crust Pastries Co. · 24 production lines · 3 shifts running</p>
+    </div>
+    <div class="welcome-chips">
+      <div class="welcome-chip">
+        <div class="v tnum">11 Aug</div>
+        <div class="k">Factory day</div>
+      </div>
+      <div class="welcome-chip">
+        <div class="v tnum">98.2%</div>
+        <div class="k">Lines reporting</div>
+      </div>
+      <div class="welcome-chip">
+        <div class="v tnum">41</div>
+        <div class="k">Active users</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROW 2 — stat cards -->
+  <section class="grid-4" style="height:132px">
+    <div class="card stat">
+      <div class="stat-top">
+        <span class="stat-tile tile-blue"><svg class="icon icon-lg"><use href="#i-factory"/></svg></span>
+        <span class="stat-delta up"><svg class="icon icon-sm"><use href="#i-arrow-up"/></svg>7.2%</span>
+      </div>
+      <div class="stat-value tnum">18,472<span class="unit">units</span></div>
+      <div class="stat-label">Today's Production</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-top">
+        <span class="stat-tile tile-amber"><svg class="icon icon-lg"><use href="#i-clock"/></svg></span>
+        <span class="stat-delta down"><svg class="icon icon-sm"><use href="#i-circle-alert"/></svg>2 aging</span>
+      </div>
+      <div class="stat-value tnum">7</div>
+      <div class="stat-label">Pending Approvals</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-top">
+        <span class="stat-tile tile-rose"><svg class="icon icon-lg"><use href="#i-trash"/></svg></span>
+        <span class="stat-delta up"><svg class="icon icon-sm"><use href="#i-arrow-down"/></svg>18.1%</span>
+      </div>
+      <div class="stat-value tnum">214.6<span class="unit">kg</span></div>
+      <div class="stat-label">Today's Waste</div>
+    </div>
+    <div class="card stat">
+      <div class="stat-top">
+        <span class="stat-tile tile-emerald"><svg class="icon icon-lg"><use href="#i-refresh"/></svg></span>
+        <span class="stat-delta flat">4 lines</span>
+      </div>
+      <div class="stat-value tnum">96<span class="unit">entries</span></div>
+      <div class="stat-label">Reprocessing</div>
+    </div>
+  </section>
+
+  <!-- ROW 3 — output chart + waste breakdown -->
+  <section class="row" style="height:292px">
+
+    <div class="card" style="width:1040px">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-blue"><svg class="icon"><use href="#i-trending-up"/></svg></span>
+          <div>
+            <h3 class="card-title">Production output</h3>
+            <p class="card-sub">Units recorded per factory day · 5–11 Aug</p>
+          </div>
+        </div>
+        <div class="legend">
+          <span class="legend-item"><span class="dot" style="background:var(--c1)"></span>Units produced</span>
+          <span class="legend-item"><span style="width:14px;height:0;border-top:2px dashed var(--target)"></span>Daily target 18,000</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <svg class="chart" viewBox="0 0 1000 186" width="100%" height="186" role="img"
+             aria-label="Bar chart of units produced per day from 5 to 11 August, against an 18,000 unit daily target">
+          <!-- gridlines -->
+          <g stroke="var(--grid)" stroke-width="1">
+            <line x1="56" y1="152" x2="992" y2="152"/>
+            <line x1="56" y1="119.5" x2="992" y2="119.5"/>
+            <line x1="56" y1="87" x2="992" y2="87"/>
+            <line x1="56" y1="54.5" x2="992" y2="54.5"/>
+            <line x1="56" y1="22" x2="992" y2="22"/>
+          </g>
+          <!-- y axis -->
+          <g fill="var(--axis)" font-size="11" text-anchor="end" font-family="inherit">
+            <text x="44" y="156">0</text>
+            <text x="44" y="123.5">5k</text>
+            <text x="44" y="91">10k</text>
+            <text x="44" y="58.5">15k</text>
+            <text x="44" y="26">20k</text>
+          </g>
+          <!-- bars -->
+          <g fill="var(--c1)">
+            <rect x="92"  y="46.4" width="62" height="105.6" rx="6" opacity=".82"/>
+            <rect x="226" y="35.6" width="62" height="116.4" rx="6" opacity=".82"/>
+            <rect x="359" y="30.3" width="62" height="121.7" rx="6" opacity=".82"/>
+            <rect x="493" y="60.3" width="62" height="91.7"  rx="6" opacity=".82"/>
+            <rect x="627" y="70.9" width="62" height="81.1"  rx="6" opacity=".82"/>
+            <rect x="760" y="26.8" width="62" height="125.2" rx="6" opacity=".82"/>
+            <rect x="894" y="31.9" width="62" height="120.1" rx="6"/>
+          </g>
+          <!-- target -->
+          <line x1="56" y1="35" x2="992" y2="35" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <!-- value labels -->
+          <g fill="var(--muted)" font-size="11" font-weight="600" text-anchor="middle" font-family="inherit"
+             stroke="var(--card)" stroke-width="3.5" paint-order="stroke fill">
+            <text x="123" y="39.4">16,240</text>
+            <text x="257" y="28.6">17,905</text>
+            <text x="390" y="23.3">18,730</text>
+            <text x="524" y="53.3">14,110</text>
+            <text x="658" y="63.9">12,480</text>
+            <text x="791" y="19.8">19,260</text>
+          </g>
+          <text x="925" y="24.9" fill="var(--text)" font-size="11.5" font-weight="700" text-anchor="middle"
+                font-family="inherit" stroke="var(--card)" stroke-width="3.5" paint-order="stroke fill">18,472</text>
+          <!-- x axis -->
+          <g fill="var(--axis)" font-size="11.5" text-anchor="middle" font-family="inherit">
+            <text x="123" y="170">Wed 5</text>
+            <text x="257" y="170">Thu 6</text>
+            <text x="390" y="170">Fri 7</text>
+            <text x="524" y="170">Sat 8</text>
+            <text x="658" y="170">Sun 9</text>
+            <text x="791" y="170">Mon 10</text>
+            <text x="925" y="170" fill="var(--text-2)" font-weight="700">Tue 11</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card" style="flex:1">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-rose"><svg class="icon"><use href="#i-trash"/></svg></span>
+          <div>
+            <h3 class="card-title">Waste by reason</h3>
+            <p class="card-sub">Today · 214.6 kg across 6 reasons</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="display:flex;gap:18px;align-items:center">
+        <svg viewBox="0 0 150 150" width="150" height="150" style="flex:none" role="img"
+             aria-label="Donut chart of today's waste split by reason">
+          <g transform="rotate(-90 75 75)" fill="none" stroke-width="20">
+            <circle cx="75" cy="75" r="52" stroke="var(--c4)" stroke-dasharray="102.2 224.5" stroke-dashoffset="0"/>
+            <circle cx="75" cy="75" r="52" stroke="var(--c3)" stroke-dasharray="77.3 249.4" stroke-dashoffset="-104.2"/>
+            <circle cx="75" cy="75" r="52" stroke="var(--c1)" stroke-dasharray="57.2 269.5" stroke-dashoffset="-183.5"/>
+            <circle cx="75" cy="75" r="52" stroke="var(--c5)" stroke-dasharray="39.9 286.8" stroke-dashoffset="-242.7"/>
+            <circle cx="75" cy="75" r="52" stroke="var(--c2)" stroke-dasharray="21.1 305.6" stroke-dashoffset="-284.6"/>
+            <circle cx="75" cy="75" r="52" stroke="var(--slate)" stroke-dasharray="17.0 309.7" stroke-dashoffset="-307.7"/>
+          </g>
+          <text x="75" y="72" text-anchor="middle" fill="var(--text)" font-size="21" font-weight="700"
+                font-family="inherit">214.6</text>
+          <text x="75" y="89" text-anchor="middle" fill="var(--muted)" font-size="11" font-weight="600"
+                font-family="inherit">kg today</text>
+        </svg>
+        <div style="flex:1;min-width:0">
+          <div class="list-meta" style="justify-content:space-between;margin:0 0 4px">
+            <span style="display:flex;align-items:center;gap:7px"><span class="dot" style="background:var(--c4)"></span>
+              <span class="trunc" style="color:var(--text-2);font-weight:600">Failed QA inspection</span></span>
+            <span class="tnum" style="font-weight:700;color:var(--text)">68.4</span>
+          </div>
+          <div class="list-meta" style="justify-content:space-between;margin:0 0 4px">
+            <span style="display:flex;align-items:center;gap:7px"><span class="dot" style="background:var(--c3)"></span>
+              <span class="trunc" style="color:var(--text-2);font-weight:600">Burnt / over-baked</span></span>
+            <span class="tnum" style="font-weight:700;color:var(--text)">52.1</span>
+          </div>
+          <div class="list-meta" style="justify-content:space-between;margin:0 0 4px">
+            <span style="display:flex;align-items:center;gap:7px"><span class="dot" style="background:var(--c1)"></span>
+              <span class="trunc" style="color:var(--text-2);font-weight:600">Expired shelf life</span></span>
+            <span class="tnum" style="font-weight:700;color:var(--text)">38.9</span>
+          </div>
+          <div class="list-meta" style="justify-content:space-between;margin:0 0 4px">
+            <span style="display:flex;align-items:center;gap:7px"><span class="dot" style="background:var(--c5)"></span>
+              <span class="trunc" style="color:var(--text-2);font-weight:600">Contamination risk</span></span>
+            <span class="tnum" style="font-weight:700;color:var(--text)">27.5</span>
+          </div>
+          <div class="list-meta" style="justify-content:space-between;margin:0 0 4px">
+            <span style="display:flex;align-items:center;gap:7px"><span class="dot" style="background:var(--c2)"></span>
+              <span class="trunc" style="color:var(--text-2);font-weight:600">Oven malfunction</span></span>
+            <span class="tnum" style="font-weight:700;color:var(--text)">15.2</span>
+          </div>
+          <div class="list-meta" style="justify-content:space-between;margin:0">
+            <span style="display:flex;align-items:center;gap:7px"><span class="dot" style="background:var(--slate)"></span>
+              <span class="trunc" style="color:var(--text-2);font-weight:600">Packaging failure</span></span>
+            <span class="tnum" style="font-weight:700;color:var(--text)">12.5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROW 4 — recent activity -->
+  <section class="card" style="height:348px">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-violet"><svg class="icon"><use href="#i-clock"/></svg></span>
+        <div>
+          <h3 class="card-title">Recent Activity</h3>
+          <p class="card-sub">Latest entries across all categories</p>
+        </div>
+      </div>
+      <span class="badge b-slate badge-pill">Live · 5 of 328 today</span>
+    </div>
+    <div class="list card-body card-body-tight">
+      <div class="list-row tight">
+        <span class="list-tile" style="background:var(--rose-tint);color:var(--rose-ink)">
+          <svg class="icon"><use href="#i-trash"/></svg></span>
+        <div class="list-main">
+          <div class="list-title">Kunafa Tray 2kg</div>
+          <div class="list-meta">
+            <span class="badge b-rose">Waste</span><span class="sep">·</span>
+            <span>18.4 kg</span><span class="sep">·</span>
+            <span>L-05 Baklava Line</span><span class="sep">·</span>
+            <span>Omar Kassab</span>
+          </div>
+        </div>
+        <span class="badge b-amber">Pending · L2</span>
+        <span class="list-time">Aug 11, 14:52</span>
+      </div>
+      <div class="list-row tight">
+        <span class="list-tile" style="background:var(--blue-tint);color:var(--blue-ink)">
+          <svg class="icon"><use href="#i-factory"/></svg></span>
+        <div class="list-main">
+          <div class="list-title">Butter Croissant 60g</div>
+          <div class="list-meta">
+            <span class="badge b-blue">Production</span><span class="sep">·</span>
+            <span>4,320 units</span><span class="sep">·</span>
+            <span>L-01 Croissant Line 1</span><span class="sep">·</span>
+            <span>Layla Nasser</span>
+          </div>
+        </div>
+        <span class="badge b-emerald">Saved</span>
+        <span class="list-time">Aug 11, 14:31</span>
+      </div>
+      <div class="list-row tight">
+        <span class="list-tile" style="background:var(--amber-tint);color:var(--amber-ink)">
+          <svg class="icon"><use href="#i-alert-triangle"/></svg></span>
+        <div class="list-main">
+          <div class="list-title">Petit Four Box 24pc</div>
+          <div class="list-meta">
+            <span class="badge b-amber">Damage</span><span class="sep">·</span>
+            <span>62 box</span><span class="sep">·</span>
+            <span>L-08 Petit Four Line</span><span class="sep">·</span>
+            <span>Sami Rahal</span>
+          </div>
+        </div>
+        <span class="badge b-slate">Crushed in transfer</span>
+        <span class="list-time">Aug 11, 13:58</span>
+      </div>
+      <div class="list-row tight">
+        <span class="list-tile" style="background:var(--emerald-tint);color:var(--emerald-ink)">
+          <svg class="icon"><use href="#i-refresh"/></svg></span>
+        <div class="list-main">
+          <div class="list-title">Croissant Dough Block</div>
+          <div class="list-meta">
+            <span class="badge b-emerald">Reprocessing</span><span class="sep">·</span>
+            <span>145.5 kg</span><span class="sep">·</span>
+            <span>L-10 Dough Mixing Hall</span><span class="sep">·</span>
+            <span>Omar Kassab</span>
+          </div>
+        </div>
+        <span class="badge b-slate">Rework into dough</span>
+        <span class="list-time">Aug 11, 13:20</span>
+      </div>
+      <div class="list-row tight">
+        <span class="list-tile" style="background:var(--blue-tint);color:var(--blue-ink)">
+          <svg class="icon"><use href="#i-factory"/></svg></span>
+        <div class="list-main">
+          <div class="list-title">Cheese Danish 80g</div>
+          <div class="list-meta">
+            <span class="badge b-blue">Production</span><span class="sep">·</span>
+            <span>2,860 units</span><span class="sep">·</span>
+            <span>L-03 Danish Pastry Line</span><span class="sep">·</span>
+            <span>Sami Rahal</span>
+          </div>
+        </div>
+        <span class="badge b-emerald">Saved</span>
+        <span class="list-time">Aug 11, 12:47</span>
+      </div>
+    </div>
+  </section>
+
+</main>

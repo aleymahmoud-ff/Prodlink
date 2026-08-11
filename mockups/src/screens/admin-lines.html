@@ -1,0 +1,220 @@
+<!--
+name: Settings — Lines
+title: Settings
+subtitle: Manage your application preferences
+page: /admin/lines
+icon: i-settings
+tone: blue
+grad: primary
+-->
+
+<template id="page-actions">
+  <span class="badge b-emerald badge-pill">
+    <svg class="icon icon-sm"><use href="#i-circle-check"/></svg>Neon PostgreSQL · Connected
+  </span>
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-globe"/></svg>
+    English
+  </div>
+</template>
+
+<main class="admin">
+  <nav class="subnav" data-subnav></nav>
+
+  <div class="col" style="flex:1">
+    <section class="card" style="flex:1">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-blue"><svg class="icon"><use href="#i-factory"/></svg></span>
+          <div>
+            <h3 class="card-title">Line Management</h3>
+            <p class="card-sub">Manage production lines</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="search"><svg class="icon icon-sm"><use href="#i-search"/></svg>Search lines…</div>
+          <div class="btn btn-primary"><svg class="icon icon-sm"><use href="#i-plus"/></svg>Add Line</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="t fixed" style="--rh:61px">
+          <thead>
+            <tr>
+              <th>Line Name</th>
+              <th style="width:130px">Line Code</th>
+              <th style="width:210px">Line Type</th>
+              <th style="width:250px">Form Approver</th>
+              <th style="width:200px">Products</th>
+              <th style="width:130px">Status</th>
+              <th style="width:130px" class="end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="t-strong">Croissant Line 1</div><div class="t-sub">Building A · Hall 1</div></td>
+              <td><span class="code">L-01</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td>Fouad Chami</td>
+              <td class="muted">28 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Croissant Line 2</div><div class="t-sub">Building A · Hall 1</div></td>
+              <td><span class="code">L-02</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td>Fouad Chami</td>
+              <td class="muted">24 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Danish Pastry Line</div><div class="t-sub">Building A · Hall 2</div></td>
+              <td><span class="code">L-03</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td>Fouad Chami</td>
+              <td class="muted">19 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Puff Pastry Sheeting</div><div class="t-sub">Building B · Prep</div></td>
+              <td><span class="code">L-04</span></td>
+              <td><span class="badge b-purple">Semi-Finished Products</span></td>
+              <td>Hana Darwish</td>
+              <td class="muted">6 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Baklava Line</div><div class="t-sub">Building C · Oriental</div></td>
+              <td><span class="code">L-05</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td>Fouad Chami</td>
+              <td class="muted">33 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Cake Sponge Line</div><div class="t-sub">Building B · Bakery</div></td>
+              <td><span class="code">L-06</span></td>
+              <td><span class="badge b-purple">Semi-Finished Products</span></td>
+              <td>Hana Darwish</td>
+              <td class="muted">11 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Filling &amp; Cream Prep</div><div class="t-sub">Building B · Prep</div></td>
+              <td><span class="code">L-07</span></td>
+              <td><span class="badge b-purple">Semi-Finished Products</span></td>
+              <td>Hana Darwish</td>
+              <td class="muted">14 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Petit Four Line</div><div class="t-sub">Building C · Fine</div></td>
+              <td><span class="code">L-08</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td>Fouad Chami</td>
+              <td class="muted">22 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Biscuit Line</div><div class="t-sub">Building C · Dry</div></td>
+              <td><span class="code">L-09</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td>Fouad Chami</td>
+              <td class="muted">41 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Dough Mixing Hall</div><div class="t-sub">Building B · Mixing</div></td>
+              <td><span class="code">L-10</span></td>
+              <td><span class="badge b-purple">Semi-Finished Products</span></td>
+              <td>Hana Darwish</td>
+              <td class="muted">8 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Chocolate Enrobing</div><div class="t-sub">Building C · Fine</div></td>
+              <td><span class="code">L-11</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td>Fouad Chami</td>
+              <td class="muted">17 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong">Syrup &amp; Glaze Prep</div><div class="t-sub">Building B · Prep</div></td>
+              <td><span class="code">L-12</span></td>
+              <td><span class="badge b-purple">Semi-Finished Products</span></td>
+              <td><span class="badge b-amber">Not set</span></td>
+              <td class="muted">5 products</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td><div class="t-strong" style="color:var(--muted)">Packing Hall A</div><div class="t-sub">Building D · decommissioned</div></td>
+              <td><span class="code">L-13</span></td>
+              <td><span class="badge b-blue">Finished Products</span></td>
+              <td class="muted">—</td>
+              <td class="muted">0 products</td>
+              <td><span class="badge b-red">Inactive</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon danger"><svg class="icon icon-sm"><use href="#i-trash"/></svg></span>
+              </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-foot">
+        <span>Showing 13 of 24 lines · 8 semi-finished, 16 finished</span>
+        <span>L-12 has no Form Approver — waste reports for that line cannot be signed off</span>
+      </div>
+    </section>
+  </div>
+</main>

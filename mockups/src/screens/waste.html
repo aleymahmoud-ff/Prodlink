@@ -1,0 +1,183 @@
+<!--
+name: Waste Entry
+title: Waste Entry
+subtitle: Record waste items requiring approval
+page: /waste
+icon: i-trash
+tone: rose
+grad: rose
+-->
+
+<template id="page-actions">
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-file-text"/></svg>
+    Export Waste Report
+  </div>
+  <div class="btn btn-rose">
+    <svg class="icon icon-sm"><use href="#i-plus"/></svg>
+    New Entry
+  </div>
+</template>
+
+<main>
+
+  <!-- ROW 1 — approval notice -->
+  <section class="notice notice-amber" style="height:68px;align-items:center">
+    <svg class="icon icon-lg"><use href="#i-circle-alert"/></svg>
+    <div>
+      <div class="n-title">Approval Required</div>
+      <div class="n-body">Waste entries require multi-level approval before being finalized</div>
+    </div>
+  </section>
+
+  <!-- ROW 2 — new entry form -->
+  <section class="card" style="height:332px">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-rose"><svg class="icon"><use href="#i-trash"/></svg></span>
+        <div>
+          <h3 class="card-title">New Entry</h3>
+          <p class="card-sub">Record a new waste entry</p>
+        </div>
+      </div>
+      <span class="badge b-slate badge-pill">Auto-captured: Rania Fadel · 11 Aug 2026, 15:04</span>
+    </div>
+    <div class="card-body col" style="gap:18px">
+      <div class="grid-4">
+        <div class="field">
+          <label class="label">Production Line <span class="req">*</span></label>
+          <div class="control">L-05 Baklava Line<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+        <div class="field">
+          <label class="label">Product <span class="req">*</span></label>
+          <div class="control">Kunafa Tray 2kg<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+        <div class="field">
+          <label class="label">Quantity <span class="req">*</span></label>
+          <div class="control focus">18.4</div>
+        </div>
+        <div class="field">
+          <label class="label">Unit</label>
+          <div class="control">Kilogram (kg)<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="field">
+          <label class="label">Batch Number</label>
+          <div class="control">BK-2608-A17</div>
+        </div>
+        <div class="field">
+          <label class="label">Waste Reason <span class="req">*</span></label>
+          <div class="control">Failed QA inspection<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+        <div class="field" style="grid-column:span 2">
+          <label class="label">Notes</label>
+          <div class="control">Syrup soak below spec on the 06:00 batch — QA hold raised by line inspector.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-foot">
+      <span>This entry will enter the approval chain at <b style="color:var(--text-2)">L1 · Shift Supervisor</b></span>
+      <div class="btn btn-rose"><svg class="icon icon-sm"><use href="#i-clipboard-check"/></svg>Submit for Approval</div>
+    </div>
+  </section>
+
+  <!-- ROW 3 — waste entries -->
+  <section class="card" style="flex:1">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-rose"><svg class="icon"><use href="#i-history"/></svg></span>
+        <div>
+          <h3 class="card-title">Waste Entries</h3>
+          <p class="card-sub">Track your waste submissions</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge b-amber badge-pill">2 Pending</span>
+        <span class="badge b-emerald badge-pill">4 Approved</span>
+        <span class="badge b-red badge-pill">1 Rejected</span>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="t fixed" style="--rh:56px">
+        <thead>
+          <tr>
+            <th style="width:150px">Date/Time</th>
+            <th style="width:230px">Production Line</th>
+            <th>Product</th>
+            <th style="width:140px">Quantity</th>
+            <th style="width:220px">Waste Reason</th>
+            <th style="width:170px">Status</th>
+            <th style="width:180px">Recorded By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Aug 11, 14:52</td>
+            <td class="t-strong">L-05 Baklava Line</td>
+            <td><span class="t-strong">Kunafa Tray 2kg</span> <span class="muted">· PF-4110</span></td>
+            <td><span class="qty qty-rose">18.4 <span class="u">kg</span></span></td>
+            <td><span class="badge b-rose">Failed QA inspection</span></td>
+            <td><span class="badge b-amber">Pending · L2</span></td>
+            <td>Omar Kassab</td>
+          </tr>
+          <tr>
+            <td>Aug 11, 11:20</td>
+            <td class="t-strong">L-01 Croissant Line 1</td>
+            <td><span class="t-strong">Butter Croissant 60g</span> <span class="muted">· PF-1042</span></td>
+            <td><span class="qty qty-rose">240 <span class="u">unit</span></span></td>
+            <td><span class="badge b-rose">Burnt / over-baked</span></td>
+            <td><span class="badge b-amber">Pending · L1</span></td>
+            <td>Layla Nasser</td>
+          </tr>
+          <tr>
+            <td>Aug 11, 09:05</td>
+            <td class="t-strong">L-03 Danish Pastry Line</td>
+            <td><span class="t-strong">Cheese Danish 80g</span> <span class="muted">· PF-2011</span></td>
+            <td><span class="qty qty-rose">96 <span class="u">unit</span></span></td>
+            <td><span class="badge b-rose">Contamination risk</span></td>
+            <td><span class="badge b-emerald">Approved</span></td>
+            <td>Sami Rahal</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 22:41</td>
+            <td class="t-strong">L-09 Biscuit Line</td>
+            <td><span class="t-strong">Petit Four Box 24pc</span> <span class="muted">· PF-6120</span></td>
+            <td><span class="qty qty-rose">34 <span class="u">box</span></span></td>
+            <td><span class="badge b-rose">Packaging failure</span></td>
+            <td><span class="badge b-red">Rejected</span></td>
+            <td>Nabil Zayat</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 18:12</td>
+            <td class="t-strong">L-06 Cake Sponge Line</td>
+            <td><span class="t-strong">Vanilla Sponge Sheet</span> <span class="muted">· PF-7005</span></td>
+            <td><span class="qty qty-rose">62.5 <span class="u">kg</span></span></td>
+            <td><span class="badge b-rose">Expired shelf life</span></td>
+            <td><span class="badge b-emerald">Approved</span></td>
+            <td>Maya Srour</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 15:33</td>
+            <td class="t-strong">L-05 Baklava Line</td>
+            <td><span class="t-strong">Baklava Assorted 1kg</span> <span class="muted">· PF-4102</span></td>
+            <td><span class="qty qty-rose">27.5 <span class="u">kg</span></span></td>
+            <td><span class="badge b-rose">Oven malfunction</span></td>
+            <td><span class="badge b-emerald">Approved · Signed</span></td>
+            <td>Omar Kassab</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 07:58</td>
+            <td class="t-strong">L-02 Croissant Line 2</td>
+            <td><span class="t-strong">Mini Croissant 25g</span> <span class="muted">· PF-1043</span></td>
+            <td><span class="qty qty-rose">410 <span class="u">unit</span></span></td>
+            <td><span class="badge b-rose">Fallen on floor</span></td>
+            <td><span class="badge b-emerald">Approved · Signed</span></td>
+            <td>Layla Nasser</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>

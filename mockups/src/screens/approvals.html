@@ -1,0 +1,154 @@
+<!--
+name: Waste Approvals
+title: Waste Approvals
+subtitle: Review and approve waste entries submitted by engineers
+page: /approvals
+icon: i-clipboard-check
+tone: cyan
+grad: cyan
+-->
+
+<template id="page-actions">
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-file-text"/></svg>
+    Export Waste Report
+  </div>
+</template>
+
+<main>
+
+  <!-- ROW 1 — status filter -->
+  <section class="card" style="height:76px">
+    <div class="card-head card-head-plain" style="height:100%">
+      <div class="card-title-row">
+        <span class="card-tile tile-cyan"><svg class="icon"><use href="#i-filter"/></svg></span>
+        <div>
+          <h3 class="card-title">Filter by Status</h3>
+          <p class="card-sub">View entries by approval status</p>
+        </div>
+      </div>
+      <div class="segment">
+        <span class="on">Pending <span class="sub">7</span></span>
+        <span>Approved <span class="sub">184</span></span>
+        <span>Rejected <span class="sub">12</span></span>
+        <span>All <span class="sub">203</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROW 2 — entries awaiting your decision -->
+  <section class="card" style="flex:1">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-cyan"><svg class="icon"><use href="#i-clipboard-check"/></svg></span>
+        <div>
+          <h3 class="card-title">Waste Entries</h3>
+          <p class="card-sub">4 entries found · you are an approver at L2 and L3</p>
+        </div>
+      </div>
+      <span class="badge b-amber badge-pill">
+        <svg class="icon icon-sm"><use href="#i-clock"/></svg>2 waiting over 24h
+      </span>
+    </div>
+
+    <div class="list card-body card-body-tight">
+
+      <!-- entry 1 — needs your decision, has notes -->
+      <div class="list-row" style="height:208px;align-items:flex-start;padding:16px 20px">
+        <div class="list-main">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="list-title" style="font-size:16px">Kunafa Tray 2kg</span>
+            <span class="badge b-amber">Pending · Level 2 of 4 · QA Manager</span>
+            <span class="badge b-red">Waiting 27h</span>
+          </div>
+          <div class="grid-2" style="gap:8px 40px;margin-top:12px;max-width:900px">
+            <div class="kv"><span class="k">Production Line:</span><span class="v">L-05 Baklava Line</span></div>
+            <div class="kv"><span class="k">Quantity:</span><span class="qty qty-rose">18.4 <span class="u">kg</span></span></div>
+            <div class="kv"><span class="k">Waste Reason:</span><span class="badge b-rose">Failed QA inspection</span></div>
+            <div class="kv"><span class="k">Recorded By:</span><span class="v">Omar Kassab</span></div>
+            <div class="kv"><span class="k">Batch Number:</span><span class="v">BK-2608-A17</span></div>
+            <div class="kv"><span class="k">L1 approved by:</span><span class="v">Tarek Mansour · 10 Aug, 16:40</span></div>
+          </div>
+          <div style="margin-top:12px;padding:9px 12px;border-radius:var(--r-md);background:var(--inner);font-size:12.5px;color:var(--muted);max-width:900px">
+            <b style="color:var(--text-2)">Notes:</b> Syrup soak below spec on the 06:00 batch — QA hold raised by line inspector.
+          </div>
+          <p class="list-time" style="margin:10px 0 0;text-align:start">Submitted Aug 11, 2026 at 14:52</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex:none">
+          <div class="btn btn-emerald"><svg class="icon icon-sm"><use href="#i-arrow-right"/></svg>Approve to L3</div>
+          <div class="btn btn-danger-outline" style="justify-content:center"><svg class="icon icon-sm"><use href="#i-x"/></svg>Reject</div>
+        </div>
+      </div>
+
+      <!-- entry 2 — needs your decision, has notes -->
+      <div class="list-row" style="height:208px;align-items:flex-start;padding:16px 20px">
+        <div class="list-main">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="list-title" style="font-size:16px">Butter Croissant 60g</span>
+            <span class="badge b-amber">Pending · Level 2 of 4 · QA Manager</span>
+            <span class="badge b-red">Waiting 31h</span>
+          </div>
+          <div class="grid-2" style="gap:8px 40px;margin-top:12px;max-width:900px">
+            <div class="kv"><span class="k">Production Line:</span><span class="v">L-01 Croissant Line 1</span></div>
+            <div class="kv"><span class="k">Quantity:</span><span class="qty qty-rose">240 <span class="u">unit</span></span></div>
+            <div class="kv"><span class="k">Waste Reason:</span><span class="badge b-rose">Burnt / over-baked</span></div>
+            <div class="kv"><span class="k">Recorded By:</span><span class="v">Layla Nasser</span></div>
+            <div class="kv"><span class="k">Batch Number:</span><span class="v">CR-2608-B04</span></div>
+            <div class="kv"><span class="k">L1 approved by:</span><span class="v">Tarek Mansour · 10 Aug, 12:05</span></div>
+          </div>
+          <div style="margin-top:12px;padding:9px 12px;border-radius:var(--r-md);background:var(--inner);font-size:12.5px;color:var(--muted);max-width:900px">
+            <b style="color:var(--text-2)">Notes:</b> Deck 3 thermostat drifted +18°C for roughly twelve minutes; maintenance ticket MT-4471 raised.
+          </div>
+          <p class="list-time" style="margin:10px 0 0;text-align:start">Submitted Aug 11, 2026 at 11:20</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex:none">
+          <div class="btn btn-emerald"><svg class="icon icon-sm"><use href="#i-arrow-right"/></svg>Approve to L3</div>
+          <div class="btn btn-danger-outline" style="justify-content:center"><svg class="icon icon-sm"><use href="#i-x"/></svg>Reject</div>
+        </div>
+      </div>
+
+      <!-- entry 3 — app-approved, awaiting the signed paper form -->
+      <div class="list-row" style="height:181px;align-items:flex-start;padding:16px 20px">
+        <div class="list-main">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="list-title" style="font-size:16px">Cheese Danish 80g</span>
+            <span class="badge b-emerald">Approved · all 4 levels</span>
+            <span class="badge b-blue">App approved · form not signed</span>
+          </div>
+          <div class="grid-2" style="gap:8px 40px;margin-top:12px;max-width:900px">
+            <div class="kv"><span class="k">Production Line:</span><span class="v">L-03 Danish Pastry Line</span></div>
+            <div class="kv"><span class="k">Quantity:</span><span class="qty qty-rose">96 <span class="u">unit</span></span></div>
+            <div class="kv"><span class="k">Waste Reason:</span><span class="badge b-rose">Contamination risk</span></div>
+            <div class="kv"><span class="k">Recorded By:</span><span class="v">Sami Rahal</span></div>
+            <div class="kv"><span class="k">Form approver:</span><span class="v">Fouad Chami · Plant Manager</span></div>
+            <div class="kv"><span class="k">Report:</span><span class="v">WD-04 / 2026-08-11</span></div>
+          </div>
+          <p class="list-time" style="margin:12px 0 0;text-align:start">Submitted Aug 11, 2026 at 09:05 · approved Aug 11 at 10:32</p>
+        </div>
+        <div class="btn btn-primary" style="flex:none"><svg class="icon icon-sm"><use href="#i-file-check"/></svg>Mark Form Signed</div>
+      </div>
+
+      <!-- entry 4 — rejected, the row with a problem -->
+      <div class="list-row" style="height:181px;align-items:flex-start;padding:16px 20px">
+        <div class="list-main">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="list-title" style="font-size:16px">Petit Four Box 24pc</span>
+            <span class="badge b-red">Rejected at Level 2</span>
+          </div>
+          <div class="grid-2" style="gap:8px 40px;margin-top:12px;max-width:900px">
+            <div class="kv"><span class="k">Production Line:</span><span class="v">L-09 Biscuit Line</span></div>
+            <div class="kv"><span class="k">Quantity:</span><span class="qty qty-rose">34 <span class="u">box</span></span></div>
+            <div class="kv"><span class="k">Waste Reason:</span><span class="badge b-rose">Packaging failure</span></div>
+            <div class="kv"><span class="k">Recorded By:</span><span class="v">Nabil Zayat</span></div>
+            <div class="kv" style="grid-column:span 2"><span class="k">Rejection comment:</span>
+              <span class="v">Reclassify as Reprocessing — outer sleeve only, product is intact. — Hana Darwish</span></div>
+          </div>
+          <p class="list-time" style="margin:12px 0 0;text-align:start">Submitted Aug 10, 2026 at 22:41 · rejected Aug 11 at 08:14</p>
+        </div>
+        <span class="badge b-slate badge-pill" style="flex:none">Returned to engineer</span>
+      </div>
+
+    </div>
+  </section>
+
+</main>

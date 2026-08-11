@@ -1,0 +1,181 @@
+<!--
+name: Production Entry
+title: Production Entry
+subtitle: Record production output for your assigned lines
+page: /production
+icon: i-factory
+tone: emerald
+grad: emerald
+-->
+
+<template id="page-actions">
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-shield-check"/></svg>
+    Exceptional Entry
+  </div>
+  <div class="btn btn-primary">
+    <svg class="icon icon-sm"><use href="#i-history"/></svg>
+    Show History
+  </div>
+</template>
+
+<main>
+
+  <!-- ROW 1 — line filter -->
+  <section class="card" style="height:178px">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-blue"><svg class="icon"><use href="#i-filter"/></svg></span>
+        <div>
+          <h3 class="card-title">Filter Production Line</h3>
+          <p class="card-sub">Select a line to record production</p>
+        </div>
+      </div>
+      <span class="badge b-emerald badge-pill">
+        <svg class="icon icon-sm"><use href="#i-circle-check"/></svg>
+        3 lines assigned to you
+      </span>
+    </div>
+    <div class="card-body grid-2">
+      <div class="field">
+        <label class="label">Line Type</label>
+        <div class="control">Finished<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+      </div>
+      <div class="field">
+        <label class="label">Production Line <span class="req">*</span></label>
+        <div class="control focus">L-01 Croissant Line 1 (L-01)
+          <svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROW 2 — bulk date control -->
+  <section class="card" style="height:72px">
+    <div class="card-head card-head-plain" style="height:100%">
+      <div class="card-title-row">
+        <span class="card-tile tile-amber"><svg class="icon"><use href="#i-calendar-clock"/></svg></span>
+        <div>
+          <h3 class="card-title">Set all rows</h3>
+          <p class="card-sub">Apply a date to every product in the table. Each row can be flipped individually.</p>
+        </div>
+      </div>
+      <div class="segment">
+        <span class="on">All to Today <span class="sub">(Tue, 11 Aug)</span></span>
+        <span>All to Yesterday <span class="sub">(Mon, 10 Aug)</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROW 3 — products table -->
+  <section class="card" style="flex:1">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-emerald"><svg class="icon"><use href="#i-package"/></svg></span>
+        <div>
+          <h3 class="card-title">Products for L-01 Croissant Line 1</h3>
+          <p class="card-sub">8 products available</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="search"><svg class="icon icon-sm"><use href="#i-search"/></svg>Search products…</div>
+        <div class="btn btn-emerald"><svg class="icon icon-sm"><use href="#i-save"/></svg>Save Entries</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="t fixed" style="--rh:60px">
+        <thead>
+          <tr>
+            <th style="width:130px"><span class="th-sort">Code<svg class="icon icon-sm"><use href="#i-sort"/></svg></span></th>
+            <th><span class="th-sort">Product<svg class="icon icon-sm"><use href="#i-sort"/></svg></span></th>
+            <th style="width:186px">Date</th>
+            <th style="width:150px">Quantity</th>
+            <th style="width:186px">Unit</th>
+            <th style="width:160px"><span class="th-sort">My Total<svg class="icon icon-sm"><use href="#i-sort"/></svg></span></th>
+            <th style="width:170px"><span class="th-sort">All Users<svg class="icon icon-sm"><use href="#i-sort"/></svg></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="code">PF-1042</span></td>
+            <td><div class="t-strong">Butter Croissant 60g</div><div class="t-sub">Viennoiserie</div></td>
+            <td><span class="segment tiny"><span class="today">Today</span><span>Yesterday</span></span></td>
+            <td><div class="control sm" style="width:112px">4320</div></td>
+            <td><div class="control sm">Unit / Piece<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-blue">4,320 <span class="u">unit</span></span></td>
+            <td><span class="qty qty-emerald">12,860 <span class="u">unit</span></span></td>
+          </tr>
+          <tr>
+            <td><span class="code">PF-1043</span></td>
+            <td><div class="t-strong">Mini Croissant 25g</div><div class="t-sub">Viennoiserie</div></td>
+            <td><span class="segment tiny"><span class="today">Today</span><span>Yesterday</span></span></td>
+            <td><div class="control sm" style="width:112px">2880</div></td>
+            <td><div class="control sm">Unit / Piece<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-blue">2,880 <span class="u">unit</span></span></td>
+            <td><span class="qty qty-emerald">7,440 <span class="u">unit</span></span></td>
+          </tr>
+          <tr>
+            <td><span class="code">PF-1088</span></td>
+            <td><div class="t-strong">Pain au Chocolat 70g</div><div class="t-sub">Viennoiserie</div></td>
+            <td><span class="segment tiny"><span class="today">Today</span><span>Yesterday</span></span></td>
+            <td><div class="control sm" style="width:112px">1960</div></td>
+            <td><div class="control sm">Unit / Piece<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-blue">1,960 <span class="u">unit</span></span></td>
+            <td><span class="qty qty-emerald">5,120 <span class="u">unit</span></span></td>
+          </tr>
+          <tr>
+            <td><span class="code">PF-1091</span></td>
+            <td><div class="t-strong">Almond Croissant 90g</div><div class="t-sub">Viennoiserie</div></td>
+            <td><span class="segment tiny"><span class="today">Today</span><span>Yesterday</span></span></td>
+            <td><div class="control sm placeholder" style="width:112px">0</div></td>
+            <td><div class="control sm">Unit / Piece<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-blue">0 <span class="u">unit</span></span></td>
+            <td><span class="qty qty-emerald">2,240 <span class="u">unit</span></span></td>
+          </tr>
+          <tr class="tinted">
+            <td><span class="code">PF-1105</span></td>
+            <td><div class="t-strong">Za'atar Croissant 65g</div><div class="t-sub">Viennoiserie</div></td>
+            <td><span class="segment tiny"><span>Today</span><span class="yday">Yesterday</span></span></td>
+            <td><div class="control sm" style="width:112px">1240</div></td>
+            <td><div class="control sm">Unit / Piece<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-amber">1,240 <span class="u">unit</span></span></td>
+            <td><span class="qty qty-emerald">3,180 <span class="u">unit</span></span></td>
+          </tr>
+          <tr>
+            <td><span class="code">PF-1112</span></td>
+            <td><div class="t-strong">Croissant Mini Box 12pc</div><div class="t-sub">Viennoiserie</div></td>
+            <td><span class="segment tiny"><span class="today">Today</span><span>Yesterday</span></span></td>
+            <td><div class="control sm placeholder" style="width:112px">0</div></td>
+            <td><div class="control sm">Box<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-blue">0 <span class="u">box</span></span></td>
+            <td><span class="qty qty-emerald">860 <span class="u">box</span></span></td>
+          </tr>
+          <tr>
+            <td><span class="code">SF-3308</span></td>
+            <td><div class="t-strong">Croissant Dough Block</div><div class="t-sub">Semi-Finished</div></td>
+            <td><span class="segment tiny"><span class="today">Today</span><span>Yesterday</span></span></td>
+            <td><div class="control sm" style="width:112px">845.5</div></td>
+            <td><div class="control sm">Kilogram (kg)<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-blue">845.5 <span class="u">kg</span></span></td>
+            <td><span class="qty qty-emerald">1,920.5 <span class="u">kg</span></span></td>
+          </tr>
+          <tr>
+            <td><span class="code">SF-3312</span></td>
+            <td><div class="t-strong">Butter Lamination Sheet</div><div class="t-sub">Semi-Finished</div></td>
+            <td><span class="segment tiny"><span class="today">Today</span><span>Yesterday</span></span></td>
+            <td><div class="control sm placeholder" style="width:112px">0</div></td>
+            <td><div class="control sm">Kilogram (kg)<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div></td>
+            <td><span class="qty qty-blue">0 <span class="u">kg</span></span></td>
+            <td><span class="qty qty-emerald">640 <span class="u">kg</span></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-foot">
+      <span>5 of 8 rows have a quantity · 7 to Today, 1 to Yesterday · totals shown for Tue, 11 Aug</span>
+      <div class="btn btn-emerald"><svg class="icon icon-sm"><use href="#i-save"/></svg>Save Entries</div>
+    </div>
+  </section>
+
+</main>

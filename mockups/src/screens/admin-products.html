@@ -1,0 +1,209 @@
+<!--
+name: Settings — Products
+title: Settings
+subtitle: Manage your application preferences
+page: /admin/products
+icon: i-settings
+tone: blue
+grad: primary
+-->
+
+<template id="page-actions">
+  <span class="badge b-emerald badge-pill">
+    <svg class="icon icon-sm"><use href="#i-circle-check"/></svg>Neon PostgreSQL · Connected
+  </span>
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-globe"/></svg>
+    English
+  </div>
+</template>
+
+<main class="admin">
+  <nav class="subnav" data-subnav></nav>
+
+  <div class="col" style="flex:1">
+
+    <section class="card" style="height:82px">
+      <div class="card-body" style="display:flex;align-items:center;gap:14px;padding:18px 20px">
+        <div class="control" style="width:300px">All Production Lines
+          <svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        <div class="control" style="width:240px">All Categories
+          <svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        <div class="control placeholder" style="flex:1">
+          <svg class="icon icon-sm lead"><use href="#i-search"/></svg>Search by product name or code…</div>
+        <span class="badge b-slate badge-pill">318 products · 11 shown</span>
+      </div>
+    </section>
+
+    <section class="card" style="flex:1">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-blue"><svg class="icon"><use href="#i-package"/></svg></span>
+          <div>
+            <h3 class="card-title">Product Management</h3>
+            <p class="card-sub">Manage your product catalog</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="btn btn-outline"><svg class="icon icon-sm"><use href="#i-upload"/></svg>Import CSV</div>
+          <div class="btn btn-primary"><svg class="icon icon-sm"><use href="#i-plus"/></svg>Add Manually</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="t fixed" style="--rh:62px">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th style="width:140px">Product Code</th>
+              <th style="width:180px">Category</th>
+              <th style="width:190px">Unit of Measure</th>
+              <th style="width:270px">Production Line</th>
+              <th style="width:120px">Status</th>
+              <th style="width:130px" class="end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="t-strong">Butter Croissant 60g</td>
+              <td><span class="code">PF-1042</span></td>
+              <td><span class="badge b-indigo">Viennoiserie</span></td>
+              <td class="muted">Unit / Piece</td>
+              <td>L-01 Croissant Line 1</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Mini Croissant 25g</td>
+              <td><span class="code">PF-1043</span></td>
+              <td><span class="badge b-indigo">Viennoiserie</span></td>
+              <td class="muted">Unit / Piece</td>
+              <td>L-01 Croissant Line 1</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Pain au Chocolat 70g</td>
+              <td><span class="code">PF-1088</span></td>
+              <td><span class="badge b-indigo">Viennoiserie</span></td>
+              <td class="muted">Unit / Piece</td>
+              <td>L-02 Croissant Line 2</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Almond Croissant 90g</td>
+              <td><span class="code">PF-1091</span></td>
+              <td><span class="badge b-indigo">Viennoiserie</span></td>
+              <td class="muted">Unit / Piece</td>
+              <td>L-01 Croissant Line 1</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Cheese Danish 80g</td>
+              <td><span class="code">PF-2011</span></td>
+              <td><span class="badge b-cyan">Danish</span></td>
+              <td class="muted">Unit / Piece</td>
+              <td>L-03 Danish Pastry Line</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Apricot Danish 80g</td>
+              <td><span class="code">PF-2014</span></td>
+              <td><span class="badge b-cyan">Danish</span></td>
+              <td class="muted">Unit / Piece</td>
+              <td>L-03 Danish Pastry Line</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Baklava Assorted 1kg</td>
+              <td><span class="code">PF-4102</span></td>
+              <td><span class="badge b-amber">Oriental</span></td>
+              <td class="muted">Kilogram (kg)</td>
+              <td>L-05 Baklava Line</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Kunafa Tray 2kg</td>
+              <td><span class="code">PF-4110</span></td>
+              <td><span class="badge b-amber">Oriental</span></td>
+              <td class="muted">Tray</td>
+              <td>L-05 Baklava Line</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Petit Four Box 24pc</td>
+              <td><span class="code">PF-6120</span></td>
+              <td><span class="badge b-violet">Petit Four</span></td>
+              <td class="muted">Box</td>
+              <td>L-08 Petit Four Line</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong">Croissant Dough Block</td>
+              <td><span class="code">SF-3308</span></td>
+              <td><span class="badge b-purple">Semi-Finished</span></td>
+              <td class="muted">Kilogram (kg)</td>
+              <td>L-10 Dough Mixing Hall</td>
+              <td><span class="badge b-emerald">Active</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td class="t-strong" style="color:var(--muted)">Vanilla Cream Base</td>
+              <td><span class="code">SF-5001</span></td>
+              <td><span class="badge b-purple">Semi-Finished</span></td>
+              <td class="muted">Kilogram (kg)</td>
+              <td><span class="badge b-amber">Not assigned</span></td>
+              <td><span class="badge b-red">Inactive</span></td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon danger"><svg class="icon icon-sm"><use href="#i-trash"/></svg></span>
+              </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-foot">
+        <span>Showing 11 of 318 products · page 1 of 29</span>
+        <span>Products can be added manually, imported from CSV/Excel, or synced from an external database</span>
+      </div>
+    </section>
+  </div>
+</main>

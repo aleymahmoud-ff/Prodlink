@@ -1,0 +1,257 @@
+<!--
+name: Settings — Users
+title: Settings
+subtitle: Manage your application preferences
+page: /admin/users
+icon: i-settings
+tone: blue
+grad: primary
+-->
+
+<template id="page-actions">
+  <span class="badge b-emerald badge-pill">
+    <svg class="icon icon-sm"><use href="#i-circle-check"/></svg>Neon PostgreSQL · Connected
+  </span>
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-globe"/></svg>
+    English
+  </div>
+</template>
+
+<main class="admin">
+  <nav class="subnav" data-subnav></nav>
+
+  <div class="col" style="flex:1">
+    <section class="card" style="flex:1">
+      <div class="card-head">
+        <div class="card-title-row">
+          <span class="card-tile tile-blue"><svg class="icon"><use href="#i-users"/></svg></span>
+          <div>
+            <h3 class="card-title">User Management</h3>
+            <p class="card-sub">Manage users and their access to the system</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="search"><svg class="icon icon-sm"><use href="#i-search"/></svg>Search users…</div>
+          <div class="btn btn-primary"><svg class="icon icon-sm"><use href="#i-plus"/></svg>Add User</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="t fixed" style="--rh:61px">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th style="width:210px">Role</th>
+              <th style="width:300px">Assigned Lines</th>
+              <th style="width:140px">Created</th>
+              <th style="width:130px" class="end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">R</span>
+                  <div><div class="t-strong">Rania Fadel</div><div class="t-sub">rania.fadel@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-indigo">Admin</span></td>
+              <td class="muted">All lines</td>
+              <td class="muted">24 Jan 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">O</span>
+                  <div><div class="t-strong">Omar Kassab</div><div class="t-sub">omar.kassab@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Production Engineer</span></td>
+              <td><span class="badge b-slate">L-01</span> <span class="badge b-slate">L-02</span> <span class="badge b-slate">L-10</span></td>
+              <td class="muted">02 Feb 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">L</span>
+                  <div><div class="t-strong">Layla Nasser</div><div class="t-sub">layla.nasser@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Production Engineer</span></td>
+              <td><span class="badge b-slate">L-01</span> <span class="badge b-slate">L-03</span></td>
+              <td class="muted">02 Feb 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">S</span>
+                  <div><div class="t-strong">Sami Rahal</div><div class="t-sub">sami.rahal@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Production Engineer</span></td>
+              <td><span class="badge b-slate">L-03</span> <span class="badge b-slate">L-08</span></td>
+              <td class="muted">05 Feb 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">T</span>
+                  <div><div class="t-strong">Tarek Mansour</div><div class="t-sub">tarek.mansour@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-cyan">Approver</span></td>
+              <td class="muted">L1 · Shift Supervisor</td>
+              <td class="muted">07 Feb 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">H</span>
+                  <div><div class="t-strong">Hana Darwish</div><div class="t-sub">hana.darwish@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-cyan">Approver</span></td>
+              <td class="muted">L2 · QA Manager</td>
+              <td class="muted">07 Feb 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">F</span>
+                  <div><div class="t-strong">Fouad Chami</div><div class="t-sub">fouad.chami@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-cyan">Approver</span></td>
+              <td class="muted">L3 · Plant Manager</td>
+              <td class="muted">07 Feb 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">N</span>
+                  <div><div class="t-strong">Nabil Zayat</div><div class="t-sub">nabil.zayat@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Production Engineer</span></td>
+              <td><span class="badge b-slate">L-05</span> <span class="badge b-slate">L-09</span></td>
+              <td class="muted">19 Feb 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">M</span>
+                  <div><div class="t-strong">Maya Srour</div><div class="t-sub">maya.srour@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Production Engineer</span></td>
+              <td><span class="badge b-slate">L-04</span> <span class="badge b-slate">L-07</span></td>
+              <td class="muted">03 Mar 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">K</span>
+                  <div><div class="t-strong">Karim Haddad</div><div class="t-sub">karim.haddad@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Production Engineer</span></td>
+              <td><span class="badge b-slate">L-06</span> <span class="badge b-slate">L-11</span></td>
+              <td class="muted">14 Mar 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">D</span>
+                  <div><div class="t-strong">Dina Aboud</div><div class="t-sub">dina.aboud@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-slate">Viewer</span></td>
+              <td class="muted">Read-only · all lines</td>
+              <td class="muted">28 Mar 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm">Y</span>
+                  <div><div class="t-strong">Yara Ghanem</div><div class="t-sub">yara.ghanem@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-slate">Viewer</span></td>
+              <td class="muted">Read-only · all lines</td>
+              <td class="muted">11 Apr 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon ok"><svg class="icon icon-sm"><use href="#i-circle-check"/></svg></span>
+              </span></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:11px">
+                  <span class="avatar avatar-sm" style="background:var(--slate)">B</span>
+                  <div><div class="t-strong" style="color:var(--muted)">Bassel Kanj</div><div class="t-sub">bassel.kanj@goldencrust.example</div></div>
+                </div>
+              </td>
+              <td><span class="badge b-emerald">Production Engineer</span> <span class="badge b-red">Inactive</span></td>
+              <td class="muted">No lines assigned</td>
+              <td class="muted">22 Apr 2026</td>
+              <td class="end"><span class="actions-cell">
+                <span class="btn-icon"><svg class="icon icon-sm"><use href="#i-pencil"/></svg></span>
+                <span class="btn-icon danger"><svg class="icon icon-sm"><use href="#i-trash"/></svg></span>
+              </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card-foot">
+        <span>Showing 13 of 41 users · 1 inactive</span>
+        <span>Google sign-in is limited to accounts created here — there is no self-registration</span>
+      </div>
+    </section>
+  </div>
+</main>

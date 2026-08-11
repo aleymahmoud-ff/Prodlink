@@ -1,0 +1,170 @@
+<!--
+name: Damage Entry
+title: Damage Entry
+subtitle: Record damaged goods from production
+page: /damage
+icon: i-alert-triangle
+tone: amber
+grad: amber
+-->
+
+<template id="page-actions">
+  <div class="btn btn-outline">
+    <svg class="icon icon-sm"><use href="#i-history"/></svg>
+    Show History
+  </div>
+  <div class="btn btn-primary">
+    <svg class="icon icon-sm"><use href="#i-plus"/></svg>
+    New Entry
+  </div>
+</template>
+
+<main>
+
+  <!-- ROW 1 — new entry form -->
+  <section class="card" style="height:332px">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-amber"><svg class="icon"><use href="#i-alert-triangle"/></svg></span>
+        <div>
+          <h3 class="card-title">New Entry</h3>
+          <p class="card-sub">Damage is recorded before classification as waste or reprocessing — no approval needed</p>
+        </div>
+      </div>
+      <span class="badge b-slate badge-pill">Auto-captured: Rania Fadel · 11 Aug 2026, 15:04</span>
+    </div>
+    <div class="card-body col" style="gap:18px">
+      <div class="grid-4">
+        <div class="field">
+          <label class="label">Production Line <span class="req">*</span></label>
+          <div class="control">L-08 Petit Four Line<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+        <div class="field">
+          <label class="label">Product <span class="req">*</span></label>
+          <div class="control">Petit Four Box 24pc<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+        <div class="field">
+          <label class="label">Quantity <span class="req">*</span></label>
+          <div class="control focus">62</div>
+        </div>
+        <div class="field">
+          <label class="label">Unit</label>
+          <div class="control">Box<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="field">
+          <label class="label">Batch Number</label>
+          <div class="control">PF-2608-C09</div>
+        </div>
+        <div class="field">
+          <label class="label">Damage Reason <span class="req">*</span></label>
+          <div class="control">Crushed in transfer<svg class="icon icon-sm chev"><use href="#i-chevron-down"/></svg></div>
+        </div>
+        <div class="field" style="grid-column:span 2">
+          <label class="label">Notes</label>
+          <div class="control">Stacked six high on the transfer trolley — bottom two layers deformed.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-foot">
+      <span>Damaged goods can later be routed to <b style="color:var(--text-2)">Waste</b> or <b style="color:var(--text-2)">Reprocessing</b></span>
+      <div class="btn btn-primary"><svg class="icon icon-sm"><use href="#i-save"/></svg>Save Entry</div>
+    </div>
+  </section>
+
+  <!-- ROW 2 — recent damage entries -->
+  <section class="card" style="flex:1">
+    <div class="card-head">
+      <div class="card-title-row">
+        <span class="card-tile tile-amber"><svg class="icon"><use href="#i-history"/></svg></span>
+        <div>
+          <h3 class="card-title">Recent Damage Entries</h3>
+          <p class="card-sub">Last 8 records across your assigned lines</p>
+        </div>
+      </div>
+      <div class="search"><svg class="icon icon-sm"><use href="#i-search"/></svg>Search entries…</div>
+    </div>
+    <div class="table-wrap">
+      <table class="t fixed" style="--rh:60px">
+        <thead>
+          <tr>
+            <th style="width:160px">Date/Time</th>
+            <th style="width:250px">Production Line</th>
+            <th>Product</th>
+            <th style="width:150px">Quantity</th>
+            <th style="width:250px">Damage Reason</th>
+            <th style="width:190px">Recorded By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Aug 11, 13:58</td>
+            <td class="t-strong">L-08 Petit Four Line</td>
+            <td><div class="t-strong">Petit Four Box 24pc</div><div class="t-sub">PF-6120 · Petit Four</div></td>
+            <td><span class="qty qty-amber">62 <span class="u">box</span></span></td>
+            <td><span class="badge b-amber">Crushed in transfer</span></td>
+            <td>Sami Rahal</td>
+          </tr>
+          <tr>
+            <td>Aug 11, 12:14</td>
+            <td class="t-strong">L-03 Danish Pastry Line</td>
+            <td><div class="t-strong">Apricot Danish 80g</div><div class="t-sub">PF-2014 · Danish</div></td>
+            <td><span class="qty qty-amber">148 <span class="u">unit</span></span></td>
+            <td><span class="badge b-amber">Deformed shape</span></td>
+            <td>Layla Nasser</td>
+          </tr>
+          <tr>
+            <td>Aug 11, 10:47</td>
+            <td class="t-strong">L-05 Baklava Line</td>
+            <td><div class="t-strong">Baklava Assorted 1kg</div><div class="t-sub">PF-4102 · Oriental</div></td>
+            <td><span class="qty qty-amber">9.5 <span class="u">kg</span></span></td>
+            <td><span class="badge b-amber">Cracked surface</span></td>
+            <td>Omar Kassab</td>
+          </tr>
+          <tr>
+            <td>Aug 11, 08:36</td>
+            <td class="t-strong">L-09 Biscuit Line</td>
+            <td><div class="t-strong">Petit Four Box 24pc</div><div class="t-sub">PF-6120 · Petit Four</div></td>
+            <td><span class="qty qty-amber">27 <span class="u">box</span></span></td>
+            <td><span class="badge b-amber">Torn packaging</span></td>
+            <td>Nabil Zayat</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 21:05</td>
+            <td class="t-strong">L-01 Croissant Line 1</td>
+            <td><div class="t-strong">Almond Croissant 90g</div><div class="t-sub">PF-1091 · Viennoiserie</div></td>
+            <td><span class="qty qty-amber">316 <span class="u">unit</span></span></td>
+            <td><span class="badge b-amber">Underweight portion</span></td>
+            <td>Layla Nasser</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 17:52</td>
+            <td class="t-strong">L-06 Cake Sponge Line</td>
+            <td><div class="t-strong">Vanilla Sponge Sheet</div><div class="t-sub">PF-7005 · Cake</div></td>
+            <td><span class="qty qty-amber">41.5 <span class="u">kg</span></span></td>
+            <td><span class="badge b-amber">Cracked surface</span></td>
+            <td>Maya Srour</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 14:19</td>
+            <td class="t-strong">L-02 Croissant Line 2</td>
+            <td><div class="t-strong">Mini Croissant 25g</div><div class="t-sub">PF-1043 · Viennoiserie</div></td>
+            <td><span class="qty qty-amber">520 <span class="u">unit</span></span></td>
+            <td><span class="badge b-amber">Deformed shape</span></td>
+            <td>Omar Kassab</td>
+          </tr>
+          <tr>
+            <td>Aug 10, 09:41</td>
+            <td class="t-strong">L-11 Chocolate Enrobing</td>
+            <td><div class="t-strong">Pain au Chocolat 70g</div><div class="t-sub">PF-1088 · Viennoiserie</div></td>
+            <td><span class="qty qty-amber">184 <span class="u">unit</span></span></td>
+            <td><span class="badge b-amber">Cracked surface</span></td>
+            <td>Karim Haddad</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
