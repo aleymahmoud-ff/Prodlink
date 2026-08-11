@@ -46,3 +46,6 @@ next-env.d.ts
 
 # supabase
 supabase/.temp/
+
+# mockup packaging output (regenerate with: node mockups/gallery.js)
+mockups/build/

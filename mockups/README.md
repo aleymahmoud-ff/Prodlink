@@ -14,6 +14,7 @@ mockups/
 ├── CATALOG.md        what each screen shows and where to use it
 ├── build.js          inlines the shared assets into one file per screen
 ├── render.js         captures every screen to PNG, light and dark
+├── gallery.js        packages a shareable folder + zip with an index gallery
 ├── src/
 │   ├── tokens.css    every colour, twice — :root and .dark
 │   ├── shell.css     canvas, sidebar, page header
@@ -22,7 +23,8 @@ mockups/
 │   ├── shell.js      nav array → sidebar + header, theme, scaler
 │   └── screens/      one fragment per screen — metadata block + <main>
 ├── dist/             built, self-contained HTML (generated)
-└── png/              rendered images (generated)
+├── png/              rendered images (generated)
+└── build/            the packaged folder and zip (generated, gitignored)
 ```
 
 ## Build and render
@@ -35,6 +37,16 @@ node mockups/render.js dashboard   # just one screen
 SCALE=2 node mockups/render.js     # 3840×2160 retina masters
 CHROME=/path/to/chrome node mockups/render.js   # if Chromium isn't auto-detected
 ```
+
+## Package a shareable folder
+
+```bash
+node mockups/gallery.js   # → build/prodlink-mockups/ and build/prodlink-mockups.zip
+```
+
+The packaged folder holds `png/` (22 images), `html/` (the 11 self-contained pages), the
+three docs, and an `index.html` contact sheet with a light/dark toggle and per-screen
+download links. Open `index.html` straight from the filesystem — it needs no server.
 
 `render.js` prefers a `headless_shell` binary because Chrome's *new* headless subtracts
 window chrome from `--window-size`, which is what puts a grey band down the side of a
