@@ -145,7 +145,8 @@ function indexHtml() {
   </div>
 
   <footer>
-    <p>See <a href="CATALOG.md">CATALOG.md</a> for where to use each shot and ready-to-paste alt text,
+    <p>See <a href="OVERVIEW.md">OVERVIEW.md</a> for what ProdLink is and who it is for,
+    <a href="CATALOG.md">CATALOG.md</a> for where to use each shot and ready-to-paste alt text,
     <a href="BRIEF.md">BRIEF.md</a> for the design tokens and demo data, and
     <a href="README.md">README.md</a> to rebuild or re-render.</p>
   </footer>
@@ -194,7 +195,7 @@ if (missing.length) {
   process.exit(1);
 }
 
-for (const doc of ['CATALOG.md', 'BRIEF.md', 'README.md']) {
+for (const doc of ['OVERVIEW.md', 'CATALOG.md', 'BRIEF.md', 'README.md']) {
   fs.copyFileSync(path.join(ROOT, doc), path.join(OUT, doc));
 }
 fs.writeFileSync(path.join(OUT, 'index.html'), indexHtml());

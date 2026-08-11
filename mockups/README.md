@@ -11,6 +11,7 @@ frameworks, no build tooling in the output, no network requests at render time �
 mockups/
 ├── PROMPT.md         the kit this pack was generated from
 ├── BRIEF.md          the kit's brief, filled in from the real app
+├── OVERVIEW.md       what ProdLink is, in one page — the product write-up
 ├── CATALOG.md        what each screen shows and where to use it
 ├── build.js          inlines the shared assets into one file per screen
 ├── render.js         captures every screen to PNG, light and dark
@@ -45,7 +46,7 @@ node mockups/gallery.js   # → build/prodlink-mockups/ and build/prodlink-mocku
 ```
 
 The packaged folder holds `png/` (22 images), `html/` (the 11 self-contained pages), the
-three docs, and an `index.html` contact sheet with a light/dark toggle and per-screen
+four docs, and an `index.html` contact sheet with a light/dark toggle and per-screen
 download links. Open `index.html` straight from the filesystem — it needs no server.
 
 `render.js` prefers a `headless_shell` binary because Chrome's *new* headless subtracts
